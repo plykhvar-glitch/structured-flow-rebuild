@@ -68,6 +68,7 @@ em.g{font-style:normal;background:var(--mark);padding:0 2px}
 .tlm .pl u{margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.2);text-decoration:none}
 @keyframes rise{to{transform:translateY(-50%)}}
 @media(prefers-reduced-motion:reduce){.tlm .lane{animation:none}}
+@media(max-width:900px){.tlm .lane:nth-child(n+2){display:none}.tlm .lane{opacity:.55;right:-60px!important}}
 .hero-in{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:end;padding-top:150px;padding-bottom:56px}
 @media(max-width:900px){.hero-frame{min-height:0}.hero-in{grid-template-columns:1fr;padding-top:120px;padding-bottom:36px}}
 .eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:500}
@@ -1106,7 +1107,7 @@ renderTrio(); fit(); paintSteps(); addEventListener('resize',fit); addEventListe
 </script>
 <script>
 /* GitHub Pages lets browsers keep this page for 10 minutes; if a newer build is live, reload onto it */
-var BUILD='s1';
+var BUILD='s2';
 fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){ return r.text(); }).then(function(h){
   var m=h.match(/var BUILD='([^']+)'/); if(m && m[1]!==BUILD){ var q=new URLSearchParams(location.search); q.set('v',m[1]); location.replace(location.pathname+'?'+q.toString()); }
 }).catch(function(){});
