@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta name="color-scheme" content="light">
+<title>Growth Audit — Structured</title>
+<meta name="description" content="Every new Structured install plans a whole day before the paywall. The paywall only uses the colour. Here is a first launch that sells Pro on the day they just planned, in Structured's own design.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Shell: structured.app's white, ink, Inter and the coral of the app. Phone: Structured's coral, dusk blue and the colour the user picks. */
+:root{
+  color-scheme:only light;
+  --ink:#141214; --ink-soft:#2A2628; --muted:rgba(20,18,20,.62); --faint:rgba(20,18,20,.22); --line:rgba(20,18,20,.09);
+  --soft:#FFF9F9; --cream:#FBF0EF; --cream2:#F6E2E0; --white:#FFFFFF;
+  --gold:#F69E9A; --gold-lift:#C25F59; --gold-soft:#FDE4E2; --gold-ink:#9A3F3A;
+  --mark:linear-gradient(transparent 60%,rgba(246,158,154,.55) 60%);
+  --f:'Inter',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  --fp:-apple-system,'SF Pro Text','SF Pro Display','Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{font-family:var(--f);color:var(--ink-soft);background:var(--white);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+img,video{display:block}
+em.g{font-style:normal;background:var(--mark);padding:0 2px}
+.hero em.g{background:none;color:#FFB9B5}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+@media(max-width:700px){.wrap{padding:0 16px}}
+
+/* ---- top bar: a floating frosted pill ---- */
+.nav{position:sticky;top:0;z-index:50;padding:12px 12px 0}
+.nav-in{max-width:1200px;margin:0 auto;padding:0 10px 0 18px;height:60px;display:flex;align-items:center;gap:14px;background:rgba(251,240,239,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:999px;box-shadow:0 1px 0 var(--line)}
+@media(max-width:700px){.nav-in{padding:0 8px 0 14px;gap:8px}}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:19px;letter-spacing:-.02em;color:var(--ink);flex:none}
+.logo i{width:26px;height:26px;background:var(--ink);-webkit-mask:url(img/check.png) center/contain no-repeat;mask:url(img/check.png) center/contain no-repeat}
+.nav-in .sep{width:1px;height:20px;background:var(--faint)}
+.nav-in .lbl{font-size:14px;color:var(--muted);white-space:nowrap}
+@media(max-width:760px){.nav-in .sep,.nav-in .lbl{display:none}}
+.tabs{margin-left:auto;display:flex;gap:2px}
+.tabs button{height:40px;padding:0 16px;border-radius:999px;font-size:15px;font-weight:500;color:var(--muted)}
+@media(max-width:400px){.tabs button{padding:0 10px;font-size:14px}.logo{font-size:0;gap:0}}
+.tabs button.on{background:var(--white);color:var(--ink);box-shadow:0 1px 3px rgba(20,18,20,.1)}
+.demo{height:44px;padding:0 20px;border-radius:999px;background:var(--ink);color:#fff;font-size:15px;font-weight:500;display:flex;align-items:center;text-decoration:none;white-space:nowrap}
+.demo:hover{background:#000}
+@media(max-width:560px){.nav .demo{display:none}}
+
+.view{display:none}.view.on{display:block}
+
+/* ======================= OVERVIEW ======================= */
+.hero-frame{margin:-72px 12px 0;border-radius:20px;overflow:hidden;position:relative;color:#fff;min-height:720px;display:flex;align-items:flex-end;background:#C9706B url(img/hero.jpg) center/cover no-repeat}
+.hero-frame::before{content:"";position:absolute;inset:0;background:rgba(246,158,154,.35);mix-blend-mode:multiply;pointer-events:none}
+.hero-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,16,20,.9) 0%,rgba(60,22,28,.62) 52%,rgba(60,22,28,.18) 100%);pointer-events:none}
+.tlm{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.tlm .lane{position:absolute;top:0;width:250px;animation:rise linear infinite}
+.tlm .lane::before{content:"";position:absolute;left:21px;top:0;bottom:0;border-left:2px dashed rgba(255,255,255,.16)}
+.tlm .pl{display:flex;align-items:center;gap:12px;height:var(--h,44px);margin-bottom:26px;position:relative}
+.tlm .pl i{flex:none;width:44px;height:100%;border-radius:22px;background:rgba(255,255,255,.16)}
+.tlm .pl span{font:600 15px/1.3 var(--fp);color:rgba(255,255,255,.2)}
+.tlm .pl small{display:block;font-weight:500;font-size:12px}
+.tlm .pl u{margin-left:auto;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.2);text-decoration:none}
+@keyframes rise{to{transform:translateY(-50%)}}
+@media(prefers-reduced-motion:reduce){.tlm .lane{animation:none}}
+.hero-in{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:end;padding-top:150px;padding-bottom:56px}
+@media(max-width:900px){.hero-frame{min-height:0}.hero-in{grid-template-columns:1fr;padding-top:120px;padding-bottom:36px}}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:500}
+.hero h1{font-size:clamp(40px,5.4vw,70px);line-height:1.03;font-weight:600;letter-spacing:-.03em;margin-top:16px;max-width:820px}
+.hero .lead{font-size:clamp(17px,1.7vw,19px);line-height:1.55;margin-top:20px;max-width:650px;color:rgba(255,255,255,.88)}
+.cta-row{display:flex;gap:10px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.btn-w{height:50px;padding:0 24px;border-radius:999px;background:#fff;color:var(--ink);font-size:17px;font-weight:500;display:inline-flex;align-items:center;gap:10px}
+.btn-w:hover{background:var(--cream)}
+.btn-o{height:50px;padding:0 22px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:17px;font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.btn-o:hover{background:rgba(255,255,255,.26)}
+.byline{margin-top:16px;font-size:14px;color:rgba(255,255,255,.7)}
+.fan{position:relative;height:400px}
+.fan img{position:absolute;width:176px;aspect-ratio:9/19;object-fit:cover;object-position:top;border-radius:18px;border:4px solid #1d1a1b;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.fan .j{width:84px;height:84px;border-radius:22px;border:0;aspect-ratio:auto;left:40%;bottom:0;z-index:4}
+@media(max-width:900px){.fan{height:280px}.fan img{width:122px;border-width:3px;border-radius:13px}.fan .j{width:62px;height:62px;border-radius:16px}}
+
+.stats{margin:12px 12px 0;border-radius:20px;background:var(--cream)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:30px 18px;text-align:center;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-size:38px;font-weight:600;letter-spacing:-.03em;line-height:1.1;color:var(--ink)}
+.stat b i{font-style:normal;color:var(--gold)}
+.stat span{display:block;font-size:14px;color:var(--muted);margin-top:6px;line-height:1.35}
+@media(max-width:800px){.stats .wrap{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}.stat{border-top:1px solid var(--line)}.stat:nth-child(-n+2){border-top:0}}
+
+.sec{padding:96px 0}
+@media(max-width:700px){.sec{padding:64px 0}}
+.sec-h{font-size:clamp(30px,3.9vw,48px);line-height:1.08;font-weight:600;letter-spacing:-.03em;max-width:900px;color:var(--ink)}
+.sec-h b{font-weight:600;color:var(--muted)}
+.sec-p{font-size:18px;line-height:1.6;color:var(--muted);margin-top:18px;max-width:780px}
+.kick{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:14px}
+
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+@media(max-width:860px){.about{grid-template-columns:1fr}}
+.flowp{margin-top:26px;display:flex;flex-direction:column;gap:10px}
+.flowp div{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--ink-soft);line-height:1.45}
+.flowp i{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#fff;display:grid;place-items:center;font-size:12px;margin-top:1px;font-weight:600}
+.flowp b{font-weight:600;color:var(--ink)}
+.flowp .k2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-top:8px}
+.note{background:var(--cream);border-radius:16px;padding:22px 24px}
+.note h4{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px;display:flex;gap:10px;align-items:center}
+.note h4 i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px}
+.note p{font-size:15px;color:var(--muted);line-height:1.55}
+.note+.note{margin-top:10px}
+
+/* your ad */
+.lib{background:var(--cream);border-radius:20px;padding:32px;margin-top:44px;display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start}
+@media(max-width:900px){.lib{grid-template-columns:1fr;padding:16px}}
+.vid{position:relative;border-radius:14px;overflow:hidden;background:#fff;display:grid;grid-template-columns:1fr 1fr}
+.vid img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.vid .tag{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.95);color:var(--ink);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 10px;border-radius:999px;display:flex;gap:6px;align-items:center}
+.vid .tag::before{content:"";width:8px;height:8px;border-radius:50%;background:#0866FF}
+.vcap{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5}
+.adb .hook{font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.3;color:var(--ink)}
+.adb .hook small{display:block;font-size:15px;font-weight:400;color:var(--muted);margin-top:6px}
+.adb .meta{font-size:13.5px;color:var(--muted);margin-top:10px}
+.adb dl{margin-top:8px;font-size:15px;line-height:1.5}
+.adb dt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:14px;font-weight:600}
+.adb dd{color:var(--ink-soft)}
+.adb .go{margin-top:20px}
+.adb .go button{height:48px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font-size:15px;font-weight:500}
+.lib-foot{margin-top:16px;font-size:14px;color:var(--muted);line-height:1.55;max-width:880px}
+
+/* the five ideas */
+.list{margin-top:40px;display:flex;flex-direction:column;max-width:980px;border-top:1px solid var(--line)}
+.it{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:26px 6px;cursor:pointer;border-bottom:1px solid var(--line);transition:background .2s}
+.it:hover{background:var(--soft)}
+@media(max-width:600px){.it{grid-template-columns:40px 1fr;gap:10px}}
+.it .em{font-size:22px;font-weight:600;color:var(--muted);letter-spacing:-.02em;padding-top:2px}
+.it h3{font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.3;color:var(--ink)}
+.it p{font-size:15.5px;color:var(--muted);margin-top:6px;line-height:1.55;max-width:780px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:12px;flex-wrap:wrap}
+.out{display:inline-flex;align-items:baseline;gap:8px;background:var(--gold-soft);color:var(--gold-ink);padding:5px 12px;border-radius:999px;font-weight:600;font-size:14.5px}
+.out small{font-weight:400;font-size:12.5px}
+.see{font-size:14.5px;color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--faint)}
+
+/* the outcome */
+.outc{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px}
+@media(max-width:860px){.outc{grid-template-columns:1fr}}
+.osh{position:relative;overflow:hidden;color:#fff;border-radius:20px;padding:36px 32px;display:flex;flex-direction:column;justify-content:flex-end;min-height:460px;background:#F69E9A}
+.osh>img{position:absolute;left:50%;top:28px;width:52%;max-width:300px;transform:translateX(-50%) rotate(-4deg);border-radius:26px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.osh::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(40,16,20,.96) 36%,rgba(40,16,20,.05) 78%)}
+.osh>*:not(img){position:relative;z-index:2}
+.osh .k{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.osh h3{font-size:30px;font-weight:600;letter-spacing:-.03em;margin-top:8px;line-height:1.15;max-width:470px}
+.osh .nums{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.osh .nums div{background:rgba(255,255,255,.1);border-radius:16px;padding:14px 20px;min-width:130px}
+.osh .nums b{display:block;font-size:40px;font-weight:600;letter-spacing:-.03em;line-height:1;color:#FFB0AB}
+.osh .nums span{font-size:13.5px;color:rgba(255,255,255,.82)}
+.osh .cap{font-size:14.5px;color:rgba(255,255,255,.8);margin-top:18px;line-height:1.5;max-width:470px}
+.dos{display:flex;flex-direction:column;gap:12px}
+.do{background:var(--cream);border-radius:20px;padding:24px 26px;flex:1}
+.do .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:6px}
+.do h4{font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.do p{font-size:15px;color:var(--muted);margin-top:6px;line-height:1.55}
+.endcta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:40px}
+.btn-k{height:52px;padding:0 26px;border-radius:999px;background:var(--ink);color:#fff;font-size:17px;font-weight:500;display:inline-flex;align-items:center}
+.btn-k:hover{background:#000}
+.btn-l{height:52px;padding:0 24px;border-radius:999px;background:var(--cream);color:var(--ink);font-size:17px;font-weight:500;display:inline-flex;align-items:center;text-decoration:none}
+.foot{font-size:13px;color:var(--muted);line-height:1.6;padding:30px 0 60px;border-top:1px solid var(--line);margin-top:36px}
+
+/* ======================= PROTOTYPE VIEW ======================= */
+.pwv{padding-top:48px;padding-bottom:70px}
+.pwv h1{font-size:clamp(34px,4.6vw,56px);font-weight:600;line-height:1.04;letter-spacing:-.03em;color:var(--ink)}
+.pwv h1 b{font-weight:600;color:var(--muted)}
+.pwv .sub{font-size:18px;color:var(--muted);margin-top:14px;max-width:820px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;align-items:center}
+.seg{display:inline-flex;background:var(--cream);border-radius:999px;padding:3px}
+.seg button{height:36px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted)}
+.seg button.on{background:var(--white);color:var(--ink);box-shadow:0 1px 3px rgba(20,18,20,.12)}
+.wt{height:42px;padding:0 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:14.5px;font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.wt.on{background:var(--gold-lift);color:#fff}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.steps button{height:42px;padding:0 14px;border-radius:999px;background:var(--cream);font-size:14px;font-weight:500;color:var(--ink-soft);transition:all .15s}
+.steps button:hover{background:var(--cream2)}
+.steps button.on{background:var(--ink);color:#fff}
+.steps button.td{background:#fff;box-shadow:inset 0 0 0 1.5px var(--faint);color:var(--muted)}
+.steps button.td.on{background:var(--muted);color:#fff;box-shadow:none}
+.stcap{margin-top:14px;font-size:15.5px;color:var(--muted);min-height:24px;max-width:920px}
+.stcap b{font-weight:600;color:var(--ink)}
+.dcap{margin-top:14px;height:0;overflow:hidden;transition:height .25s}
+.dcap.on{height:58px}
+.dcap-in{display:flex;align-items:center;gap:14px;background:var(--ink);color:#fff;border-radius:16px;padding:0 18px;height:58px;font-size:15px}
+.dcap-in .pr{flex:none;width:120px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden}
+.dcap-in .pr i{display:block;height:100%;width:0;background:var(--gold)}
+.dcap-in span{flex:1}
+@media(max-width:600px){.dcap.on{position:fixed;left:8px;right:8px;bottom:8px;z-index:60;margin:0}.dcap-in{font-size:13.5px}.dcap-in .pr{width:60px}}
+.trio{display:flex;gap:28px;justify-content:center;margin-top:26px;--sc:.8}
+@media(max-width:899px){.trio{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 14px;margin-left:-16px;margin-right:-16px;gap:16px}}
+.tcol{flex:none;display:flex;flex-direction:column;align-items:center;scroll-snap-align:center}
+.apill{display:flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 6px;border-radius:999px;background:var(--cream);font-size:13.5px;font-weight:500;color:var(--ink-soft);margin-bottom:14px;max-width:calc(390px * var(--sc) + 20px);white-space:nowrap;overflow:hidden}
+.apill .mt{height:24px;padding:0 9px;border-radius:99px;background:var(--ink);color:#fff;font-size:11.5px;display:inline-flex;align-items:center;flex:none}
+.apill .mt.ad{background:#0866FF}
+.apill .tx{overflow:hidden;text-overflow:ellipsis}
+.pbox{width:calc(390px * var(--sc));height:calc(844px * var(--sc));position:relative}
+.phone{position:absolute;left:0;top:0;width:390px;height:844px;transform:scale(var(--sc));transform-origin:0 0;border-radius:58px;background:#0c0c0c;padding:12px;box-shadow:0 30px 60px rgba(20,18,20,.22),0 0 0 2px #2c2c2c inset}
+.tcol.ring .phone{box-shadow:0 30px 60px rgba(20,18,20,.22),0 0 0 6px var(--ring)}
+.tlab{margin-top:16px;text-align:center;max-width:calc(390px * var(--sc) + 10px)}
+.tlab b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:600}
+.tlab span{display:block;font-size:14px;color:var(--muted);margin-top:4px;line-height:1.45}
+.finger{position:absolute;z-index:30;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 0 2px rgba(20,18,20,.35),0 6px 18px rgba(0,0,0,.35);pointer-events:none;opacity:0;transition:left .38s var(--ease),top .38s var(--ease),transform .12s,opacity .2s}
+.finger.on{opacity:1}.finger.press{transform:scale(.72)}
+
+/* ---- inside the phone: Structured, as the app ships ---- */
+.scr{position:absolute;inset:12px;border-radius:46px;overflow:hidden;color-scheme:only light;
+  --s-bg:#FFFFFF; --s-surf:#FFFFFF; --s-card:#F6F4F5; --s-ink:#0C0B0C; --s-ink2:rgba(12,11,12,.72); --s-mute:rgba(12,11,12,.45); --s-line:rgba(12,11,12,.09); --s-chip:#F4F2F3; --s-pink:#FDE9E9; --s-shadow:0 2px 10px rgba(80,30,40,.08);
+  --coral:#F69E9A; --coral-d:#E9827D; --dusk:#507397; --dusk-b:#7697B9;
+  background:var(--s-bg);color:var(--s-ink);font-family:var(--fp);display:flex;flex-direction:column}
+.phone.dk .scr{--s-bg:#0B0B0C; --s-surf:#1C1C1E; --s-card:#1C1C1E; --s-ink:#F5F5F7; --s-ink2:rgba(245,245,247,.75); --s-mute:rgba(245,245,247,.45); --s-line:rgba(255,255,255,.1); --s-chip:#2A2A2C; --s-pink:#2A1D1F; --s-shadow:0 2px 10px rgba(0,0,0,.4)}
+.sb{height:50px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 36px;font-size:15px;font-weight:600;font-family:-apple-system,sans-serif;position:relative;z-index:6;color:var(--s-ink)}
+.sb.w{color:#fff}
+.sb .isl{position:absolute;left:50%;top:11px;width:120px;height:34px;margin-left:-60px;background:#000;border-radius:20px}
+.sb .ic{display:flex;gap:5px;align-items:center}
+.scr-top{flex:none;height:46px;display:flex;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:5}
+.scr-top .bk{width:26px;height:26px;display:grid;place-items:center;color:var(--s-mute)}
+.scr-top .bk svg{width:20px;height:20px}
+.scr-top .prg{flex:1;height:5px;border-radius:3px;background:var(--s-chip);overflow:hidden}
+.scr-top .prg i{display:block;height:100%;border-radius:3px;background:var(--pc,var(--coral));transition:width .3s}
+.scr-top .skp{font-size:14px;color:var(--s-mute);font-weight:500}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative;padding:0 20px 18px}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-body.col{display:flex;flex-direction:column}
+.scr-foot{flex:none;padding:12px 20px 30px;position:relative;z-index:4;background:var(--s-bg)}
+.scr-foot.sep{box-shadow:0 -1px 0 var(--s-line)}
+.s-btn{display:flex;align-items:center;justify-content:center;width:100%;height:54px;border-radius:14px;background:var(--bc,var(--coral));color:#fff;font:600 17px/1 var(--fp);box-shadow:0 6px 14px -6px var(--bc,var(--coral))}
+.s-btn[disabled]{opacity:.4;cursor:default;box-shadow:none}
+.s-btn2{display:flex;align-items:center;justify-content:center;width:100%;height:48px;border-radius:14px;background:var(--ts);color:var(--tt);font:600 16px/1 var(--fp);margin-top:10px}
+.s-h{font:700 27px/1.2 var(--fp);letter-spacing:-.02em;margin-top:6px}
+.s-h em{font-style:normal;color:var(--hc,var(--coral))}
+.s-sub{font-size:14px;line-height:1.45;color:var(--s-ink2);margin-top:8px}
+.toast{position:absolute;left:50%;bottom:120px;transform:translateX(-50%) translateY(10px);background:rgba(28,28,30,.94);color:#fff;font:600 13px/1.3 var(--f);padding:10px 15px;border-radius:999px;opacity:0;transition:all .25s;pointer-events:none;z-index:40;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.pulse{animation:pulse 1.6s ease-out 2;border-radius:14px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,130,125,.95)}100%{box-shadow:0 0 0 16px rgba(233,130,125,0)}}
+.ico{display:inline-block;width:20px;height:20px;flex:none}
+.ico svg{width:100%;height:100%}
+
+/* Instagram, where the ad ran */
+.igv{position:absolute;inset:0;background:#fff;color:#000;font-family:-apple-system,sans-serif;display:flex;flex-direction:column}
+.phone.dk .igv{background:#000;color:#fff}
+.igv .ibar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-top:50px;font-weight:700;font-size:22px;letter-spacing:-.02em}
+.igv .ibar span{display:flex;gap:18px}
+.igv .ibar svg{width:24px;height:24px}
+.igv .ph{display:flex;align-items:center;gap:10px;padding:8px 14px}
+.igv .ph img{width:34px;height:34px;border-radius:50%}
+.igv .ph b{font-size:14px;display:block}
+.igv .ph small{font-size:12px;opacity:.6}
+.igv .car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.igv .car::-webkit-scrollbar{display:none}
+.igv .car img{flex:none;width:100%;aspect-ratio:1/1;object-fit:cover;scroll-snap-align:start}
+.igv .ins{display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 14px;background:#0866FF;color:#fff;font-weight:600;font-size:15px;width:100%}
+.igv .cdots{display:flex;gap:4px;justify-content:center;padding:8px 0 2px}
+.igv .cdots i{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.25}
+.igv .cdots i.on{background:#0866FF;opacity:1}
+.igv .cap{font-size:13.5px;line-height:1.45;padding:6px 14px}
+.igv .cap b{margin-right:4px}
+
+/* welcome, their three intro screens */
+.wel{position:absolute;inset:0;display:flex;flex-direction:column;color:#fff;background:#F69E9A;transition:background .3s}
+.wel.s2{background:#FDE9E9;color:#5C7FA3}
+.wel .sb{color:#fff}.wel.s2 .sb{color:#0C0B0C}
+.wel .wtop{display:flex;justify-content:space-between;align-items:center;padding:4px 22px 0}
+.wel .wdots{display:flex;gap:6px}.wel .wdots i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.4}.wel .wdots i.on{opacity:1;width:16px;border-radius:4px}
+.wel .wskip{font-size:14px;opacity:.85;font-weight:500}
+.wel h2{font:400 34px/1.15 var(--fp);letter-spacing:-.02em;padding:20px 22px 0}
+.wel h2 b{font-weight:700}
+.wel p.ws{font-size:13px;padding:8px 22px 0;opacity:.9}
+.wel .wimg{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.wel .wimg img{width:100%}
+.wel .wfoot{display:flex;align-items:center;justify-content:space-between;padding:0 22px 36px;min-height:80px}
+.wel .wlog{font-size:12px;opacity:.85}
+.wel .wnext{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.28);display:grid;place-items:center;color:#fff}
+.wel.s2 .wnext{background:#F69E9A}
+.wel .wnext svg{width:22px;height:22px}
+.fromad{display:inline-flex;gap:7px;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.26);color:#fff;font-size:12px;font-weight:600;margin:14px 22px 0;align-self:flex-start}
+
+/* start */
+.st-img{margin:18px -20px 0}
+.st-img img{width:100%}
+.phone.dk .st-img img{opacity:.85}
+.st-alt{display:block;text-align:center;width:100%;font-size:13.5px;color:var(--s-mute);margin-bottom:12px}
+
+/* focus: new question in their row style */
+.fo-list{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.fo{display:flex;align-items:center;gap:14px;padding:14px 14px;border-radius:16px;background:var(--s-surf);box-shadow:var(--s-shadow);border:2px solid transparent;text-align:left;width:100%}
+.phone.dk .fo{background:var(--s-surf)}
+.fo i{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--s-pink);color:var(--coral-d)}
+.fo i svg{width:22px;height:22px}
+.fo b{display:block;font-size:15.5px;font-weight:600}
+.fo small{display:block;font-size:12.5px;color:var(--s-mute);margin-top:2px}
+.fo.on{border-color:var(--coral)}
+.fo .rd{margin-left:auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--s-line);flex:none}
+.fo.on .rd{border-color:var(--coral);background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat}
+.newtag{display:inline-flex;height:22px;padding:0 9px;border-radius:999px;background:var(--s-pink);color:var(--coral-d);font-size:11px;font-weight:700;align-items:center;letter-spacing:.04em;margin-top:2px}
+
+/* wake and bed: their skies and wheels */
+.sky{position:absolute;left:0;right:0;top:180px;bottom:0;pointer-events:none}
+.sky.day{background:linear-gradient(180deg,rgba(255,255,255,0) 0%,#FDE6E3 28%,#FCDCCD 62%,#FDF0D9 100%)}
+.phone.dk .sky.day{background:linear-gradient(180deg,rgba(0,0,0,0) 0%,#3A2424 30%,#4A3026 70%,#3A3020 100%)}
+.sky.day .sun{position:absolute;right:26px;top:66px;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#FFE07A,#F7C843 60%,#F2B732);box-shadow:0 0 0 14px rgba(247,200,67,.12)}
+.sky.day .sun::before{content:"";position:absolute;inset:-26px;border-radius:50%;background:repeating-conic-gradient(rgba(247,200,67,.9) 0 6deg,transparent 6deg 30deg);-webkit-mask:radial-gradient(circle,transparent 62%,#000 63%,#000 72%,transparent 73%);mask:radial-gradient(circle,transparent 62%,#000 63%,#000 72%,transparent 73%)}
+.sky .cl{position:absolute;background:#fff;border-radius:999px;opacity:.95}
+.phone.dk .sky .cl{opacity:.12}
+.sky.night{top:150px;background:linear-gradient(180deg,rgba(80,115,151,0) 0%,#6E8DAD 18%,#507397 45%,#4B6E92 100%)}
+.sky.night .moon{position:absolute;left:-24px;top:160px;width:110px;height:110px;border-radius:50%;box-shadow:26px -8px 0 0 #F2C94C}
+.sky.night .star{position:absolute;width:4px;height:4px;border-radius:50%;background:#F2D27A}
+.whl-wrap{position:relative;height:200px;margin:6px auto;width:220px;z-index:2}
+.whl-arr{display:block;text-align:center;color:var(--s-mute);font-size:18px;line-height:1;position:relative;z-index:2}
+.whl-arr.w{color:rgba(255,255,255,.75)}
+.whl{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+.whl::-webkit-scrollbar{display:none}
+.whl .sp{height:80px}
+.whl .wi{height:40px;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font:500 16px/1 var(--fp);color:var(--s-ink2);transition:color .15s,opacity .15s;gap:7px}
+.whl.w .wi{color:rgba(255,255,255,.8)}
+.whl .wi sup{font-size:10px}
+.whl-hl{position:absolute;left:30px;right:30px;top:80px;height:40px;border-radius:10px;background:var(--hb,var(--coral));box-shadow:0 6px 16px -6px var(--hb,var(--coral))}
+.whl-hl.w{background:#fff}
+.whl .wi.on{color:#fff;font-weight:700}
+.whl.w .wi.on{color:var(--dusk)}
+.whl .wi .ico{display:none;width:15px;height:15px}
+.whl .wi.on .ico{display:inline-block}
+
+/* task screens */
+.tk-in{display:flex;align-items:center;gap:12px;margin-top:150px;padding:12px 14px;border-radius:14px;background:var(--s-surf);box-shadow:var(--s-shadow)}
+.tk-in .ci{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:2px dashed var(--s-line);color:var(--s-mute)}
+.tk-in .ci .ico{width:18px;height:18px}
+.tk-in span{flex:1;font-size:15px;color:var(--s-mute);border-bottom:1px solid var(--s-line);padding-bottom:4px}
+.tk-in span.v{color:var(--s-ink);font-weight:600}
+.tk-in .ok{width:20px;height:20px;border-radius:50%;border:2px solid var(--coral)}
+.sg-h{font-size:13px;color:var(--s-mute);margin-top:24px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sg button{display:flex;align-items:center;gap:9px;height:46px;padding:0 12px;border-radius:12px;background:var(--s-surf);box-shadow:var(--s-shadow);font-size:14px;font-weight:600;text-align:left;border:2px solid transparent}
+.sg button .ico{width:18px;height:18px;color:var(--coral-d)}
+.sg button.on{border-color:var(--coral)}
+.tcard{display:flex;align-items:center;gap:12px;margin-top:20px;padding:12px 14px;border-radius:16px;background:var(--s-surf);box-shadow:var(--s-shadow)}
+.tcard .ci{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--tc,var(--coral));color:#fff}
+.tcard .ci .ico{width:20px;height:20px}
+.tcard small{display:block;font-size:12px;color:var(--s-mute)}
+.tcard b{display:block;font-size:15.5px;font-weight:600;margin-top:1px}
+.tcard .rc{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--tc,var(--coral));opacity:.7}
+.dur{display:flex;gap:6px;justify-content:center;margin-top:120px;background:var(--s-chip);border-radius:12px;padding:5px}
+.dur button{flex:1;height:38px;border-radius:9px;font-size:14px;font-weight:600;color:var(--s-mute)}
+.dur button.on{background:var(--coral);color:#fff;box-shadow:0 4px 10px -4px var(--coral)}
+.dur-alt{display:block;text-align:center;font-size:13px;color:var(--coral-d);margin-top:16px;width:100%}
+.dots{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;margin:110px -20px 0;padding:8px 20px}
+.dots::-webkit-scrollbar{display:none}
+.dots button{flex:none;width:34px;height:34px;border-radius:50%;background:var(--c);position:relative}
+.dots button.on{box-shadow:0 0 0 3px var(--s-bg),0 0 0 5.5px var(--c)}
+.dots button.rb{background:conic-gradient(#F69E9A,#F3A56B,#E9B949,#9BC57A,#6E8EB2,#A15373,#F69E9A)}
+.hatch{position:absolute;pointer-events:none;opacity:.55;border-radius:40%}
+.hatch.g{left:-30px;bottom:150px;width:130px;height:190px;background:repeating-linear-gradient(60deg,#9BC57A 0 2px,transparent 2px 9px);transform:rotate(-12deg)}
+.hatch.b{right:-40px;top:70px;width:140px;height:150px;background:repeating-linear-gradient(-40deg,#7697B9 0 2px,transparent 2px 9px),repeating-linear-gradient(40deg,#7697B9 0 2px,transparent 2px 12px)}
+.hatch.p{right:-30px;bottom:110px;width:130px;height:150px;background:repeating-linear-gradient(130deg,#F69E9A 0 2px,transparent 2px 10px)}
+.sys{position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;font-family:-apple-system,sans-serif}
+.sys-in{width:272px;border-radius:16px;background:rgba(242,242,244,.97);color:#000;text-align:center;overflow:hidden}
+.phone.dk .sys-in{background:rgba(44,44,46,.97);color:#fff}
+.sys-in h5{font-size:16px;font-weight:600;line-height:1.3;padding:18px 16px 0}
+.sys-in p{font-size:13px;line-height:1.4;padding:6px 16px 16px}
+.sys-in .bt{display:flex;border-top:.5px solid rgba(120,120,128,.35)}
+.sys-in .bt button{flex:1;height:44px;font-size:16px;color:#0A84FF}
+.sys-in .bt button+button{border-left:.5px solid rgba(120,120,128,.35);font-weight:600}
+
+/* loader: the day read back */
+.ld{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 26px 40px}
+.ld img{width:104px;border-radius:24px;animation:bob 1.1s ease-in-out infinite;box-shadow:0 12px 30px -10px rgba(233,130,125,.7)}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-4deg)}}
+.ld h3{font:700 23px/1.3 var(--fp);text-align:center;margin-top:26px;letter-spacing:-.01em}
+.ld h3 em{font-style:normal;color:var(--tt)}
+.ld-bar{width:100%;height:6px;border-radius:3px;background:var(--s-chip);margin-top:18px;overflow:hidden}
+.ld-bar i{display:block;height:100%;width:0;background:var(--t);border-radius:3px;transition:width .25s linear}
+.ld-list{width:100%;margin-top:20px;display:flex;flex-direction:column;gap:11px}
+.ld-list div{display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.35;color:var(--s-mute);transition:color .3s}
+.ld-list div.ok{color:var(--s-ink)}
+.ld-list .ck{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--s-line);display:grid;place-items:center}
+.ld-list div.ok .ck{background:var(--t);border-color:var(--t)}
+.ld-list .ck svg{width:12px;height:12px;stroke:#fff;stroke-width:3.4;fill:none;opacity:0}
+.ld-list div.ok .ck svg{opacity:1}
+.ld-list b{color:var(--tt);font-weight:700}
+
+/* their plan payoff */
+.pl-card{margin-top:22px;border-radius:18px;background:var(--s-surf);box-shadow:var(--s-shadow);padding:6px 14px}
+.pl-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--s-line)}
+.pl-row:last-child{border-bottom:0}
+.pl-row .ci{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--tc)}
+.pl-row .ci .ico{width:19px;height:19px}
+.pl-row small{display:block;font-size:12px;color:var(--s-mute)}
+.pl-row b{display:block;font-size:15px;font-weight:600}
+.pl-row.done b{text-decoration:line-through;color:var(--s-mute)}
+.pl-row .rc{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--tc)}
+.pl-row.done .rc{background:var(--tc)}
+.pl-k{font-size:13px;color:var(--s-mute);margin-top:22px}
+.pl-chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:var(--ts);color:var(--tt);font-size:12.5px;font-weight:600;margin-top:12px}
+.pl-free{font-size:13px;color:var(--s-ink2);margin-top:12px;line-height:1.45}
+.pl-free b{color:var(--tt)}
+
+/* paywall, proposed */
+.pw-x{position:absolute;right:16px;top:58px;z-index:6;width:30px;height:30px;border-radius:50%;background:var(--s-chip);display:grid;place-items:center;color:var(--s-mute)}
+.pw-x svg{width:14px;height:14px}
+.pw-eb{font:700 25px/1.15 var(--fp);color:var(--tt);letter-spacing:-.02em;margin-top:6px;display:flex;align-items:center;gap:6px}
+.pw-vs{font:700 22px/1.2 var(--fp);letter-spacing:-.02em;margin:2px 0 0 26px}
+.pw-vs span{font-weight:400;color:var(--s-mute);font-size:19px;margin-right:4px}
+.pw-h{font:700 21px/1.28 var(--fp);letter-spacing:-.015em;margin-top:16px}
+.pw-h em{font-style:normal;color:var(--tt)}
+.pw-s{font-size:13.5px;line-height:1.5;color:var(--s-ink2);margin-top:6px}
+.pw-chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:var(--ts);color:var(--tt);font-size:12.5px;font-weight:600;margin-top:12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aw{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:6px}
+.aw i{display:block;height:40px;flex:1;background:var(--s-ink);opacity:.82;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.rate{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12.5px;font-weight:600;margin-top:10px;color:var(--s-ink2)}
+.rate i{font-style:normal;color:var(--tt);letter-spacing:1px;font-size:13px}
+.cmp{margin-top:16px;border-radius:14px;background:var(--s-surf);box-shadow:var(--s-shadow);padding:4px 12px 6px}
+.cmp .r{display:grid;grid-template-columns:1fr 44px 44px;align-items:center;min-height:36px;font-size:13.5px;border-bottom:1px solid var(--s-line)}
+.cmp .r:last-child{border-bottom:0}
+.cmp .r.hd{font-size:11.5px;color:var(--s-mute);min-height:30px}
+.cmp .r.hd span{text-align:center}
+.cmp .r.lead b{font-weight:700}
+.cmp .r b{font-weight:500}
+.cmp .c{display:grid;place-items:center}
+.cmp .yes{width:18px;height:18px;color:var(--tt)}
+.cmp .no{color:var(--s-mute);font-size:14px}
+.allb{display:block;text-align:center;font-size:12.5px;font-weight:600;color:var(--tt);margin-top:10px;width:100%}
+.plans{margin-top:16px}
+.plan{position:relative;display:block;width:100%;text-align:left;background:var(--s-surf);color:var(--s-ink);border-radius:14px;padding:13px 15px;margin-bottom:10px;border:2px solid var(--s-line);font-family:var(--fp)}
+.plan.on{border-color:var(--t);box-shadow:0 0 0 3px var(--ts)}
+.plan .tg{display:inline-flex;align-items:center;height:20px;background:var(--t);color:#fff;font:700 10px/1 var(--fp);letter-spacing:.05em;padding:0 8px;border-radius:5px}
+.plan .rw{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.plan b{font-size:16.5px;font-weight:700}
+.plan .pp{font-size:16px;font-weight:700}
+.plan .pp small{display:inline;font-size:12.5px;font-weight:500;color:var(--s-mute);margin:0}
+.plan small{display:block;font-size:12px;color:var(--s-mute);margin-top:3px}
+.plan .rw2{display:flex;justify-content:space-between;align-items:center;margin-top:3px}
+.plan .sv{font-size:12px;color:var(--tt);font-weight:600;margin-top:4px}
+.tl{margin-top:12px;border-radius:14px;background:var(--s-surf);box-shadow:var(--s-shadow);padding:12px 14px}
+.tl h5{font-size:13px;font-weight:600;color:var(--s-ink2);margin-bottom:6px}
+.tl div{display:flex;gap:12px;padding:6px 0;position:relative}
+.tl div i{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ts);color:var(--tt);display:grid;place-items:center;font-style:normal;font-size:12px}
+.tl b{display:block;font-size:13.5px}
+.tl small{display:block;font-size:12px;color:var(--s-mute);line-height:1.4}
+.rev{margin-top:14px;background:var(--s-surf);box-shadow:var(--s-shadow);border-radius:14px;padding:13px 15px}
+.rev h5{font-size:14px;font-weight:700}
+.rev .st{color:var(--tt);font-size:13px;letter-spacing:2px;margin-top:2px}
+.rev p{font-size:13px;line-height:1.5;color:var(--s-ink2);margin-top:6px}
+.rev small{display:block;font-size:11.5px;color:var(--s-mute);margin-top:6px}
+.legal{font-size:11px;line-height:1.55;color:var(--s-mute);margin-top:14px;text-align:center}
+.fcap{font-size:13px;color:var(--s-ink2);text-align:center;margin-bottom:10px}
+.fcap b{color:var(--s-ink)}
+.flinks{display:flex;justify-content:center;gap:10px;font-size:12px;color:var(--tt);margin-top:10px;font-weight:600}
+.flinks span{color:var(--s-mute)}
+
+/* today's paywall, as it ships */
+.t-rv{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:10px -20px 0;padding:4px 20px 8px}
+.t-rv::-webkit-scrollbar{display:none}
+.t-rv .rev{flex:none;width:250px;margin-top:0;scroll-snap-align:center}
+.t-k{font-size:13px;color:var(--s-ink2);margin-top:18px}
+.cap-today{margin:18px 0 6px;border:1.5px dashed var(--s-mute);border-radius:14px;padding:12px;text-align:center;font-size:12.5px;color:var(--s-ink2);line-height:1.5;font-family:var(--f)}
+.sheet{position:absolute;inset:0;z-index:15;background:rgba(0,0,0,.3);display:flex;align-items:flex-end}
+.sheet-in{width:100%;background:var(--s-bg);border-radius:22px 22px 0 0;padding:10px 18px 30px;max-height:78%;overflow:auto}
+.sheet-in .grab{width:38px;height:5px;border-radius:3px;background:var(--s-line);margin:0 auto 12px}
+.sheet-in h4{font-size:18px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.sheet-in h4 button{width:28px;height:28px;border-radius:50%;background:var(--s-chip);color:var(--s-mute);font-size:14px}
+
+/* home: their timeline */
+.hm-h{flex:none;padding:2px 18px 0}
+.hm-h h2{font:700 26px/1.1 var(--fp);letter-spacing:-.02em}
+.hm-h h2 span{color:var(--tt)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-top:10px}
+.wk small{font-size:11px;color:var(--s-mute)}
+.wk b{display:grid;place-items:center;width:32px;height:32px;margin:3px auto 0;border-radius:50%;font-size:15px;font-weight:600}
+.wk b.on{background:var(--t);color:#fff}
+.wk u{display:block;width:16px;height:4px;border-radius:2px;margin:4px auto 0;background:var(--s-chip);text-decoration:none}
+.wk u.on{background:var(--t)}
+.tlv{position:relative;margin-top:16px;padding-left:6px}
+.tlv::before{content:"";position:absolute;left:30px;top:20px;bottom:20px;border-left:2px dashed var(--ts)}
+.tli{display:flex;align-items:center;gap:14px;position:relative;margin-bottom:14px}
+.tli .pl{flex:none;width:50px;border-radius:25px;display:grid;place-items:center;color:#fff;background:var(--tc)}
+.tli .pl .ico{width:21px;height:21px}
+.tli small{display:block;font-size:12px;color:var(--s-mute)}
+.tli b{display:block;font-size:15px;font-weight:600}
+.tli .rc{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--tc)}
+.tli.done b{text-decoration:line-through;color:var(--s-mute)}
+.tli.done .rc{background:var(--tc)}
+.gap{font-size:12px;color:var(--s-mute);margin:0 0 14px 66px}
+.tabbar{flex:none;margin:0 14px 26px;height:62px;border-radius:999px;background:var(--s-surf);box-shadow:0 4px 18px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-around;font-size:10.5px;color:var(--s-ink);padding-right:70px;position:relative}
+.tabbar div{display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600}
+.tabbar div.on{color:var(--tt)}
+.tabbar svg{width:20px;height:20px}
+.tabbar .fab{position:absolute;right:4px;top:4px;width:54px;height:54px;border-radius:50%;background:var(--t);color:#fff;display:grid;place-items:center;font-size:28px;font-weight:300}
+.nt{position:absolute;left:12px;right:12px;bottom:28px;z-index:12;border-radius:26px;background:var(--s-bg);box-shadow:0 -10px 40px rgba(0,0,0,.18);padding:16px 16px 18px;text-align:center}
+.nt .tcard{margin-top:0;text-align:left}
+.nt h4{font-size:19px;font-weight:700;margin-top:16px}
+.nt p{font-size:13px;color:var(--s-ink2);margin-top:6px;line-height:1.45}
+.nt .s-btn{margin-top:14px;height:50px}
+.nt .skip{font-size:13.5px;color:var(--s-mute);margin-top:12px;display:block;width:100%}
+.nt .mv{display:inline-flex;height:22px;padding:0 9px;border-radius:999px;background:var(--ts);color:var(--tt);font-size:11px;font-weight:700;align-items:center;margin-top:10px}
+
+.ideas{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:56px}
+@media(max-width:800px){.ideas{grid-template-columns:1fr}}
+.idea{background:var(--cream);border-radius:16px;padding:22px 24px;cursor:pointer;transition:background .15s}
+.idea:hover{background:var(--cream2)}
+.idea:last-child{grid-column:1/-1}
+.idea .n{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lift);font-weight:600}
+.idea h3{font-size:19px;font-weight:600;letter-spacing:-.02em;margin-top:4px;line-height:1.3;color:var(--ink)}
+.idea p{font-size:14.5px;color:var(--muted);margin-top:6px;line-height:1.55}
+.idea .kept{font-size:13px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.qr{position:relative;overflow:hidden;display:flex;gap:26px;align-items:center;color:#fff;border-radius:20px;padding:30px 32px;margin-top:40px;flex-wrap:wrap;background:linear-gradient(120deg,#F69E9A,#E9827D 60%,#C96B66)}
+.qr::after{content:"";position:absolute;right:-30px;top:-40px;width:260px;height:260px;background:url(img/wel1.jpg) center/cover;border-radius:50%;opacity:.18}
+.qr>*{position:relative;z-index:2}
+.qr img.code{width:135px;height:135px;background:#fff;border-radius:12px;padding:0;image-rendering:pixelated}
+.qr h3{font-size:24px;font-weight:600;letter-spacing:-.02em}
+.qr p{font-size:15px;color:rgba(255,255,255,.9);margin-top:4px;max-width:520px}
+.qr .demo{margin-left:auto;background:#fff;color:var(--ink);height:48px;padding:0 24px;font-size:16px}
+@media(max-width:1080px){.qr img.code{display:none}}
+@media(max-width:700px){.qr .demo{margin-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-in">
+  <span class="logo" role="img" aria-label="Structured"><i></i>Structured</span>
+  <span class="sep"></span><span class="lbl">Growth audit · by Adapty</span>
+  <div class="tabs"><button data-v="over" class="on">Overview</button><button data-v="pw">Prototype</button></div>
+  <a class="demo" href="https://calendly.com/d/cty4-37z-zqj" target="_blank" rel="noopener">Book a demo</a>
+</div></nav>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+  <header class="hero hero-frame">
+    <div class="tlm" id="tlm" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+      <div>
+        <div class="eyebrow">Growth audit · November 2026 · Prepared by Adapty</div>
+        <h1>Every new install plans a whole day. <em class="g">The paywall only remembers the colour.</em></h1>
+        <p class="lead">A new user answers When did you wake up?, When will you go to bed?, picks a first task, its time, its length and its colour, and reads “Awesome! That’s a great plan.” Then comes the same Structured Pro vs Structured Free table for everyone, with Monthly and Lifetime tucked behind All Plans. Here is a first launch that sells Pro on the day they just planned, in your design, at your prices.</p>
+        <div class="cta-row">
+          <button class="btn-w" data-open="pw">Open the three flows</button>
+          <button class="btn-o" data-walk>▶ Watch the 30-second walkthrough</button>
+        </div>
+        <p class="byline">Built from your live iOS onboarding and paywall, your App Store listing, structured.app and your ad in the Meta Ad Library.</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <img src="img/fan-welcome.jpg" style="left:0;top:70px;transform:rotate(-8deg)" alt="">
+        <img src="img/fan-bed.jpg" style="left:29%;top:16px;transform:rotate(-1deg);z-index:2" alt="">
+        <img src="img/fan-timeline.jpg" style="left:58%;top:80px;transform:rotate(7deg)" alt="">
+        <img class="j" src="img/icon.png" alt="">
+      </div>
+    </div>
+  </header>
+
+  <div class="stats"><div class="wrap">
+    <div class="stat"><b><i>★</i> 4.8</b><span>from 169K ratings on the US App Store, Editors’ Choice</span></div>
+    <div class="stat"><b>500K+</b><span>Pro users, as structured.app says</span></div>
+    <div class="stat"><b>6</b><span>answers a new user gives before the paywall</span></div>
+    <div class="stat"><b>1</b><span>of them the paywall uses today: the colour</span></div>
+  </div></div>
+
+  <section class="sec"><div class="wrap about">
+    <div>
+      <div class="kick">What this is</div>
+      <h2 class="sec-h">We walked Structured’s first launch, then rebuilt <b>the screens between the plan and Pro</b>.</h2>
+      <p class="sec-p">Adapty powers subscriptions for 30,000+ apps, so we see what moves purchases across the market. Nearly 500 apps build their paywalls and onboarding in Adapty Flow Builder, and millions of dollars in subscription revenue pass through it every month. For Structured we looked for the gap between what a new user has just told the app and what the paywall says back.</p>
+      <div class="flowp">
+        <div class="k2">Your first launch today</div>
+        <div><i>1</i><span>Welcome to Structured, A Timeline of your day, Structured helps you… No sign-up wall. <b>Good, kept.</b></span></div>
+        <div><i>2</i><span>Wake-up and bedtime wheels, then a first task: what, when, how long, what colour. <b>Kept, and now used.</b></span></div>
+        <div><i>3</i><span>Awesome! That’s a great plan., then Don’t Miss Your Task! and the iOS notification prompt.</span></div>
+        <div><i>4</i><span>Structured Pro vs Structured Free, Yearly with a three-day trial. Monthly and Lifetime sit behind All Plans.</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="note"><h4><i>1</i>Your design, not ours</h4><p>Your #F69E9A coral, the dusk-blue bedtime sky, the time wheels, the 15m / 30m / 1h duration pills, the colour dots that retheme the whole app, your Pro vs Free table, the trial timeline and your App Store laurels. Only the order changes.</p></div>
+      <div class="note"><h4><i>2</i>Your prices, as published</h4><p>$4.99 a month, $14.99 a year with a three-day free trial, and $49.99 once for Lifetime, as your paywall shows them. $14.99 a year is $1.25 a month, 74% less than twelve months at $4.99. No invented discount, no timer.</p></div>
+      <div class="note"><h4><i>3</i>You may have tested some of this</h4><p>We cannot see your experiment history. Tell us what you already ran and we will go deeper on the rest.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="ads" style="padding-top:0"><div class="wrap">
+    <div class="kick">Your ad on Meta</div>
+    <h2 class="sec-h">One ad in the library. <b>It tells Leo’s story.</b></h2>
+    <p class="sec-p">The Meta Ad Library shows one creative from the Structured page, a two-image carousel that ran for a week in January. Everyone it brought met the same first launch as an App Store install, and the same paywall.</p>
+    <div class="lib">
+      <div>
+        <div class="vid"><img src="img/ad1.jpg" alt="Leo, 2019 and now"><img src="img/ad2.jpg" alt="The team and the timeline"><span class="tag">META · CAROUSEL</span></div>
+        <p class="vcap">Card 1: “2019 I wrote down an idea…”, young Leo and Leo now. Card 2: the team, “30 million downloads, ~300,000 active subscribers”, and your timeline on an iPhone.</p>
+      </div>
+      <div class="adb">
+        <div class="hook">“I built this app because I couldn’t find what I needed.”<small>From an idea quickly jotted down to 30M downloads, signed Leo, with Install Now to the App Store.</small></div>
+        <div class="meta">Meta · 26 January to 1 February 2026 · two-image carousel, two ads · Meta Ad Library</div>
+        <dl>
+          <dt>In the ad</dt><dd>Leo’s story from a friend planning her day on paper to an app used all over the world. It ends on “Helping people focus on what matters, one day at a time.”</dd>
+          <dt>The promise</dt><dd>A planner made by someone who needed one, built for one day at a time.</dd>
+          <dt>Today it lands on</dt><dd>The same three intro screens, the same questions and the same Pro table as every install.</dd>
+          <dt>In the rebuild</dt><dd>The welcome carries Leo’s line, and Pro opens on the one day they just planned.</dd>
+        </dl>
+        <div class="go"><button data-adgo="0">Open its flow</button></div>
+      </div>
+    </div>
+    <p class="lib-foot">Adapty can pick the flow at first open from the campaign an install came from. When the next ad goes live, it gets its own first screen the same day, with no app release.</p>
+  </div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="kick">The five ideas</div>
+    <h2 class="sec-h">Ranked by what we would <b>test first</b>.</h2>
+    <p class="sec-p">Tap any of them to open that screen on all three phones.</p>
+    <div class="list" id="list"></div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="kick">Potential outcome</div>
+    <h2 class="sec-h">Five ideas, <b>one paywall per planned day</b>.</h2>
+    <div class="outc">
+      <div class="osh">
+        <img src="img/fan-timeline.jpg" alt="">
+        <div class="k">Run together</div>
+        <h3>Pro sold on the day they planned, with every plan in view</h3>
+        <div class="nums"><div><b>+20%</b><span>purchases</span></div><div><b>+10%</b><span>ARPU</span></div></div>
+        <p class="cap">The low end of the five ranges above, not added up. Each change is its own A/B test against today’s flow, judged on revenue per install.</p>
+      </div>
+      <div class="dos">
+        <div class="do"><div class="k">Do this week</div><h4>Put the planned day on the paywall</h4><p>One template: the headline takes the task and its time, the first rows of your Pro vs Free table follow the task. Built in Flow Builder, live without an app release.</p></div>
+        <div class="do"><div class="k">Then</div><h4>Add the focus question and all three plans</h4><p>Five answers from your own listing decide the suggestions, the headline and the review. Monthly and Lifetime join Yearly on the first screen.</p></div>
+        <div class="do"><div class="k">And measure</div><h4>Judge Lifetime and the trial on revenue</h4><p>In productivity apps, people who buy straight away are often worth more than trial starters. Adapty reports revenue per install for each plan, so you see which one pays.</p></div>
+      </div>
+    </div>
+    <div class="endcta"><button class="btn-k" data-open="pw">Open the prototype</button><a class="btn-l" href="https://calendly.com/d/cty4-37z-zqj" target="_blank" rel="noopener">Book a demo</a></div>
+    <p class="foot">Impact ranges are Adapty’s expected effect from teardowns and A/B tests across subscription apps, not measured lift for Structured. Screens, copy, the Pro vs Free rows, the trial timeline, the in-app reviews and the prices ($4.99 a month, $14.99 a year with a three-day free trial, $49.99 Lifetime) come from the Structured iOS onboarding and paywall as published on screensdesign.com (US storefront). 4.8 from 169K ratings, Editors’ Choice, the “Built for ADHD minds, busy professionals, and students” and “Perfect for” lines, the Replan description and the reviews by skc7 and kayflowerz come from the US App Store listing, read 11 November 2026. The awards art (Editors’ Choice, App of the Day, Forbes) is from your App Store screenshots. 500K+ Pro users and the lifetime-membership review come from structured.app. The ad is from the Meta Ad Library, Structured - Daily Planner page. $1.25 a month is $14.99 ÷ 12; 74% is 1 − $14.99 ÷ ($4.99 × 12 = $59.88). “Still open to plan” on the loader is bedtime minus wake-up, minus 15 minutes of Rise and Shine and the task’s length.</p>
+  </div></section>
+</div>
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-pw">
+  <div class="wrap pwv">
+    <div class="kick">Prototype · one first launch per planned day</div>
+    <h1>Three new users. <b>Three days planned.</b></h1>
+    <p class="sub">One install from your Meta ad, one from the App Store story “Manage ADHD With These Helpful Apps”, and a student. Same screens, same prices. Tap the steps, or tap inside any phone: turn a wheel, pick a task, choose a plan, tap Skip For Now.</p>
+    <div class="tools">
+      <div class="seg" id="theme"><button data-th="light" class="on">Light</button><button data-th="dark">Dark</button></div>
+      <button class="wt" id="wt" data-walk>▶ 30-second walkthrough</button>
+    </div>
+    <div class="steps" id="steps">
+      <button data-st="today" class="td">Today</button><button data-st="arrive">1 · Arrive</button><button data-st="focus">2 · Your focus</button><button data-st="day">3 · Your day</button><button data-st="task">4 · First task</button><button data-st="load">5 · Reading your day</button><button data-st="plan">6 · Your plan</button><button data-st="pw" class="on">7 · Pro</button><button data-st="home">8 · Into the app</button>
+    </div>
+    <p class="stcap" id="stcap"></p>
+    <div class="dcap" id="dcap"><div class="dcap-in"><span id="dtx"></span><div class="pr"><i id="dpr"></i></div></div></div>
+    <div class="trio" id="trio"></div>
+    <div class="ideas" id="ideas"></div>
+    <div class="qr">
+      <img class="code" src="img/qr.svg" alt="QR code to this prototype">
+      <div><h3>Try it on your phone</h3><p>Scan to open the three flows in your hand. Every screen is buildable in Adapty Flow Builder and testable against today’s.</p></div>
+      <a class="demo" href="https://calendly.com/d/cty4-37z-zqj" target="_blank" rel="noopener">Book a demo</a>
+    </div>
+  </div>
+</div>
+
+<script>
+var $=function(s,r){ return (r||document).querySelector(s); }, $$=function(s,r){ return [].slice.call((r||document).querySelectorAll(s)); };
+function SV(d,w){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>'; }
+function IC(k){ return '<span class="ico">'+SV(ICN[k]||ICN.check)+'</span>'; }
+var CHK='<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICN={
+ emails:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+ clean:'<path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.4l-.8-1.9-1.9-.8 1.9-.8z"/>',
+ lunch:'<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2.2 2-2.2 6 0 8v10"/>',
+ walk:'<circle cx="13" cy="4" r="2"/><path d="M10 21l2-6 3 3v3M8.5 12l3.5-4 3 2.5 3 1M12 8l-1.2 5"/>',
+ phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+ journal:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+ book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M6.5 17H20v4H6.5A2.5 2.5 0 0 1 4 18.5"/>',
+ photos:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/>',
+ alarm:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3 2 6M22 6l-3-3"/>',
+ moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>',
+ pencil:'<path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/>',
+ adhd:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+ work:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20"/>',
+ study:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+ routine:'<path d="M12 2v5M4.9 9.9l1.4 1.4M2 17h2M20 17h2M17.7 11.3l1.4-1.4M22 21H2M16 17a4 4 0 0 0-8 0"/>',
+ plate:'<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
+ check:'<path d="M20 6 9 17l-5-5"/>', x:'<path d="M18 6 6 18M6 6l12 12"/>', back:'<path d="M19 12H5M12 19l-7-7 7-7"/>', next:'<path d="M5 12h14M12 5l7 7-7 7"/>',
+ star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>', bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>'
+};
+
+var G={ theme:'light', step:'pw' };
+
+/* the five focus answers, in your App Store listing's words */
+var FOC={
+ adhd:{t:'ADHD-friendly planning',s:'Planning that actually sticks',p:'ADHD-friendly planning',k:'ADHD'},
+ work:{t:'Time blocking my work',s:'Work and meetings on one timeline',p:'time blocking your work',k:'Work'},
+ study:{t:'Classes and study tasks',s:'Timetables, study blocks, deadlines',p:'classes and study',k:'Study'},
+ routine:{t:'Morning and evening routines',s:'A day that starts and ends the same',p:'your morning and evening routines',k:'Routines'},
+ plate:{t:'Just a lot on my plate',s:'Everything in one place',p:'a lot on your plate',k:'A lot on my plate'}
+};
+var FORD=['adhd','work','study','routine','plate'];
+/* their own task suggestions */
+var SUG={ emails:['Answer Emails',30], clean:['Clean Up',30], lunch:['Eat Lunch',30], walk:['Go for a walk',30], phone:['Phone a friend',15], journal:['Write in journal',15], book:['Read a book',60], photos:['Take photos',30] };
+var SORD={ today:['emails','clean','lunch','walk','phone','journal','book','photos'],
+ adhd:['walk','clean','phone','lunch','journal','emails','book','photos'], work:['emails','lunch','walk','phone','clean','journal','book','photos'],
+ study:['book','journal','lunch','walk','phone','emails','clean','photos'], routine:['walk','journal','lunch','clean','book','phone','emails','photos'],
+ plate:['emails','clean','lunch','phone','walk','journal','book','photos'] };
+/* the colours they offer */
+var COLS={ coral:'#F69E9A', orange:'#F3A56B', yellow:'#E5B43F', lime:'#93C175', blue:'#6E8EB2', green:'#3E8C68', slate:'#4F7398', teal:'#4E9C8E', plum:'#A15373', navy:'#2C4F74', black:'#2B2B2E' };
+var CORD=['coral','orange','yellow','lime','blue','green','slate','teal','plum','navy','black'];
+var TT={ coral:'#DB6A64', orange:'#C9732F', yellow:'#A57A12', lime:'#4F8A35' };
+function mixw(hex,k){ var n=parseInt(hex.slice(1),16), r=n>>16, g=(n>>8)&255, b=n&255; function m(v){ return Math.round(v+(255-v)*k); } return 'rgb('+m(r)+','+m(g)+','+m(b)+')'; }
+function soft(hex,a){ var n=parseInt(hex.slice(1),16); return 'rgba('+(n>>16)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
+/* your Pro vs Free table, plus Replan from your listing */
+var ROWS={ sync:['Cloud Sync',1], unl:['Unlimited Tasks',1], cal:['Calendar Import',0], notif:['Custom Notifications',0], rec:['Recurring Tasks',0], rem:['Reminders Sync',0], ai:['Structured AI',0], icons:['550+ Icons',0], replan:['Replan',0] };
+var RORD=['sync','unl','cal','notif','rec','rem','ai','icons'];
+var PWF={
+ adhd:{ rows:['replan','notif','rec','ai'], h:function(c){ return 'Missed '+tn(c)+'? <em>Pro replans it for you.</em>'; }, s:'Replan moves missed or forgotten tasks, so one slow morning doesn’t sink the whole day.', rv:'adhd' },
+ work:{ rows:['cal','rem','ai','notif'], h:function(c){ return tn(c)+' at '+fmt(c.tt)+', <em>right next to your meetings.</em>'; }, s:'Connect your calendars and Reminders, and your meetings land on the same timeline as your tasks.', rv:'work' },
+ study:{ rows:['rec','cal','rem','notif'], h:function(c){ return tn(c)+' at '+fmt(c.tt)+', <em>every day, on its own.</em>'; }, s:'Recurring tasks repeat daily, weekly or monthly, so your timetable builds itself.', rv:'study' },
+ routine:{ rows:['rec','notif','rem','replan'], h:function(c){ return 'Rise and Shine at '+fmt(c.wake)+', <em>every morning, on its own.</em>'; }, s:'Recurring tasks repeat daily, weekly or monthly, so the routine is there before you are.', rv:'routine' },
+ plate:{ rows:['cal','rem','ai','replan'], h:function(c){ return 'Your calendar, your reminders and '+tn(c)+', <em>on one timeline.</em>'; }, s:'Structured AI drafts the rest of your day in seconds.', rv:'plate' }
+};
+var REV={
+ adhd:{h:'Best planner by far for ADHD brains',t:'“Thoughtful updates and amazing attention to details that work well for ADHD brains!”',s:'skc7 · App Store'},
+ work:{h:'Saved me two hours a week',t:'“I invested in the lifetime membership because this app has saved me at least two hours a week — which adds up to over 100 hours a year.”',s:'App Store review, on structured.app'},
+ study:{h:'Absolutely love it as a student',t:'“Being a student, it gets difficult remembering my classes, their timings and venues, and other logistics. The calendar app is fine; structured is better. iCloud integration and soft colours are essential.”',s:'App Store review, on your paywall today'},
+ routine:{h:'The App That Helped Me to Become Who I Want To Be',t:'“I spend about 15 minutes the night before planning out the next one. The structure gives me a reason to get out of bed in the morning.”',s:'kayflowerz · App Store'},
+ plate:{h:'New favorite app',t:'“This app has been so helpful in helping me plan my everyday life and keep me accountable for my tasks and responsibilities!”',s:'App Store review, on your paywall today'}
+};
+
+/* the three phones */
+var PH=[
+ { id:'ad', src:'ad', ring:'#0866FF', mt:'Meta ad', pill:'Leo’s founder story', f:'work', wake:420, bed:1380, task:'emails', tt:540, dur:30, col:'slate', lab:['From your Meta ad','Arrives on Leo’s line and plans work blocks, so Pro opens on calendar import and Answer Emails at 9:00 AM.'] },
+ { id:'adhd', mt:'App Store', pill:'ADHD story', ring:'#F69E9A', f:'adhd', wake:480, bed:1440, task:'walk', tt:600, dur:30, col:'coral', lab:['ADHD planner','Picks ADHD-friendly planning, so Pro leads with Replan for the walk they might miss.'] },
+ { id:'study', mt:'App Store', pill:'Student', ring:'#A15373', f:'study', wake:450, bed:1410, task:'book', tt:960, dur:60, col:'plum', lab:['Student','Picks classes and study, so Pro leads with recurring tasks: Read a book at 4:00 PM, every day.'] }
+];
+
+var IDEAS=[
+ { t:'Open Pro on the day they just planned', p:'Today every install reads “Structured Pro ★ vs Structured Free” and the same eight rows. Here the headline takes their task and its time (“Answer Emails at 9:00 AM, right next to your meetings.”), and the first rows of your table are the ones that task needs.', o:'CR +15–20%', u:'to purchase', st:'pw', hl:'head', kept:'Kept: your header, your table, your laurels, the colour they picked as the paywall’s colour.' },
+ { t:'Ask what the day is for, in your listing’s words', p:'Your App Store page says Structured is built for ADHD minds, busy professionals and students, but the first launch never asks which. One new screen with five answers from your “Perfect for” list reorders the task suggestions and picks the paywall’s headline, rows and review.', o:'CR +8–20% · ARPU +13–35%', u:'when the answer reaches the paywall', st:'focus', hl:'focus', kept:'Kept: every question you ask today. This one is added, not swapped.' },
+ { t:'Put Monthly and Lifetime next to Yearly', p:'Today the paywall shows only “Try 3 days for free, then just $14.99 / year.” Monthly and Lifetime wait behind All Plans, though reviewers write “Please keep your one-time payment option!”. Here all three sit on the first screen, Yearly picked, with “$1.25 a month · 74% less than Monthly”.', o:'CR +5–15% · ARPU +10–15%', u:'from more yearly and lifetime plans', st:'pw', hl:'plans', kept:'Kept: your three plans, your FREE TRIAL tag, your prices and your trial timeline.' },
+ { t:'Let the wait read their day back', p:'Today Continue on What color? jumps straight to “Awesome! That’s a great plan.” Here a short wait names what it is doing with each answer: “Your day runs 7:00 AM to 11:00 PM”, “Blocking Answer Emails, 9:00–9:30 AM”, “15 h 15 min still open to plan”. Then your own payoff screen.', o:'CR +10–15%', u:'to purchase', st:'load', hl:'ld', kept:'Kept: your payoff screen and its three-row plan, word for word.' },
+ { t:'Ask for notifications on the timeline, after Pro', p:'Today Don’t Miss Your Task! and the iOS prompt sit between the plan and the paywall, one more decision before the one that pays. Here the same card opens on their first look at the timeline, attached to their own task, after Pro or Skip For Now.', o:'CR +10–15%', u:'when moved past the paywall', st:'home', hl:'notif', kept:'Kept: your Don’t Miss Your Task! card, its task preview and Skip For Now.' }
+];
+
+var TCAP={
+ today:'<b>Today:</b> the paywall as it ships, after Finish Setup and the notification prompt. Same screen for every install. Tap All Plans to see Monthly and Lifetime.',
+ arrive:'<b>Step 1.</b> One install from your Meta ad, two from the App Store. Your three intro screens, untouched; the ad install sees Leo’s line.',
+ focus:'<b>Step 2. Proposed:</b> one new question, five answers from your App Store “Perfect for” list. Change it and watch the suggestions and Pro follow.',
+ day:'<b>Step 3.</b> Your wake-up wheel and bedtime sky, untouched. Scroll a wheel: the loader, the plan and the timeline use the time.',
+ task:'<b>Step 4.</b> What’s up next?, with suggestions ordered by the focus. Then your time wheel, duration pills and colour dots.',
+ load:'<b>Step 5. Proposed:</b> the wait reads their day back while it builds the plan.',
+ plan:'<b>Step 6.</b> Your “Awesome! That’s a great plan.”, word for word, now naming the focus and the hours still open.',
+ pw:'<b>Step 7. Proposed:</b> Pro opens on the day they planned, with all three plans. Scroll a phone, pick a plan, tap Skip For Now: it closes straight into the app.',
+ home:'<b>Step 8. Proposed:</b> the timeline they planned, and your Don’t Miss Your Task! card, asked here instead of before Pro.'
+};
+
+var COL=PH.map(function(){ return {}; });
+function initCol(i){ var p=PH[i], c=COL[i]; c.f=p.f; c.wake=p.wake; c.bed=p.bed; c.task=p.task; c.tt=p.tt; c.dur=p.dur; c.col=p.col; c.theme=p.col; c.plan='y'; c.ld=0; c.slide=0; c.dlg=0; c.sys=0; c.nt=1; c.all=0; c.allp=0; c.focused=1; return c; }
+PH.forEach(function(p,i){ initCol(i); });
+
+function fmt(m){ m=((m%1440)+1440)%1440; var h=Math.floor(m/60), mm=m%60, ap=h<12?'AM':'PM', hh=h%12||12; return hh+':'+(mm<10?'0':'')+mm+' '+ap; }
+function fmtS(m){ return fmt(m)+(m>=1440?'<sup>+1</sup>':''); }
+function hm(m){ var h=Math.floor(m/60), mm=m%60; return h+' h'+(mm?' '+mm+' min':''); }
+function tn(c){ return SUG[c.task]?SUG[c.task][0]:c.task; }
+function tcol(c){ return COLS[c.theme]||COLS.coral; }
+function free(c){ return Math.max(0,c.bed-c.wake-15-c.dur); }
+
+function sb(w){ return '<div class="sb'+(w?' w':'')+'"><span>9:41</span><i class="isl"></i><span class="ic"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="18" height="8" rx="2" fill="currentColor"/></svg></span></div>'; }
+function topBar(pct,pc){ return '<div class="scr-top"><button class="bk" data-act="back">'+SV(ICN.back)+'</button><div class="prg"><i style="width:'+pct+'%;'+(pc?'--pc:'+pc:'')+'"></i></div><button class="skp" data-act="skip">Skip</button></div>'; }
+
+/* ---- screens ---- */
+function scrIG(i){
+  return '<div class="igv">'+sb()+'<div class="ibar" style="margin-top:0">Instagram<span>'+SV('<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>')+SV('<path d="m22 2-7 20-4-9-9-4z"/>')+'</span></div>'+
+   '<div class="ph"><img src="img/icon.png" alt=""><div><b>structuredapp</b><small>Sponsored</small></div></div>'+
+   '<div class="car" id="car'+i+'"><img src="img/ad1.jpg" alt=""><img src="img/ad2.jpg" alt=""></div>'+
+   '<button class="ins" data-act="install"><span>Install Now</span><span>›</span></button><div class="cdots"><i class="on"></i><i></i></div>'+
+   '<div class="cap"><b>structuredapp</b>I built this app because I couldn’t find what I needed. From an idea I quickly jotted down to 30M downloads… grateful for every day, every user. 🩷 Leo</div></div>';
+}
+var WEL=[
+ {c:'',h:'Welcome to<br><b>Structured</b>',s:'',img:'wel1.jpg'},
+ {c:'s2',h:'A <b>Timeline</b> of<br>your day',s:'All events, to-dos and notes in one place.',img:'wel2.jpg'},
+ {c:'',h:'<b>Structured</b><br>helps you…',s:'',img:'wel3.jpg'}
+];
+function scrWelcome(i){
+  var c=COL[i], w=WEL[c.slide];
+  return '<div class="wel '+w.c+'">'+sb(w.c!=='s2')+'<div class="wtop"><span class="wdots">'+WEL.map(function(x,k){ return '<i'+(k===c.slide?' class="on"':'')+'></i>'; }).join('')+'</span><button class="wskip" data-act="wskip">Skip</button></div>'+
+   (PH[i].src==='ad'&&c.slide===0?'<span class="fromad">♥ “Helping people focus on what matters, one day at a time.” Leo</span>':'')+
+   '<h2>'+w.h+'</h2>'+(w.s?'<p class="ws">'+w.s+'</p>':'')+'<div class="wimg"><img src="img/'+w.img+'" alt=""></div>'+
+   '<div class="wfoot"><span class="wlog">'+(c.slide===0?'Already using Structured Cloud? <b>Log in</b>':'')+'</span><button class="wnext" data-act="wnext">'+SV(ICN.next,2.4)+'</button></div></div>';
+}
+function scrStart(i){
+  return sb()+topBar(6)+'<div class="scr-body"><h2 class="s-h">Let’s get started by planning <em>today</em>…</h2><p class="s-sub">This will only take a few steps</p><div class="st-img"><img src="img/start.jpg" alt=""></div></div>'+
+   '<div class="scr-foot"><button class="st-alt" data-act="tomorrow">Plan for tomorrow instead</button><button class="s-btn" data-act="startplan">Start Planning</button></div>';
+}
+function scrFocus(i){
+  var c=COL[i];
+  return sb()+topBar(14)+'<div class="scr-body"><span class="newtag">NEW</span><h2 class="s-h">What brings you to <em>Structured</em>?</h2><p class="s-sub">We’ll set up today around it.</p>'+
+   '<div class="fo-list" data-hl="focus">'+FORD.map(function(k){ return '<button class="fo'+(c.f===k?' on':'')+'" data-act="f" data-f="'+k+'"><i>'+SV(ICN[k])+'</i><span><b>'+FOC[k].t+'</b><small>'+FOC[k].s+'</small></span><span class="rd"></span></button>'; }).join('')+'</div></div>'+
+   '<div class="scr-foot"><button class="s-btn" data-act="focusnext">Continue</button></div>';
+}
+function wheel(kind,c){
+  var a,b,ic,val,w=kind==='bed';
+  if(kind==='wake'){ a=240; b=705; ic='alarm'; val=c.wake; } else if(kind==='bed'){ a=1200; b=1560; ic='moon'; val=c.bed; } else { a=300; b=1365; ic='clock'; val=c.tt; }
+  var items='';
+  for(var m=a;m<=b;m+=15) items+='<div class="wi'+(m===val?' on':'')+'" data-m="'+m+'">'+(kind!=='tt'?IC(ic):'')+'<span>'+fmtS(m)+'</span></div>';
+  return '<span class="whl-arr'+(w?' w':'')+'">↑</span><div class="whl-wrap" data-hl="wheel"><div class="whl-hl'+(w?' w':'')+'"></div><div class="whl'+(w?' w':'')+'" data-k="'+kind+'" data-a="'+a+'" data-v="'+val+'"><div class="sp"></div>'+items+'<div class="sp"></div></div></div><span class="whl-arr'+(w?' w':'')+'">↓</span>';
+}
+function scrWake(i){
+  var c=COL[i];
+  return sb()+topBar(24)+'<div class="scr-body" style="overflow:hidden"><div class="sky day"><i class="sun"></i><i class="cl" style="left:-30px;top:250px;width:180px;height:60px"></i><i class="cl" style="right:-40px;top:300px;width:200px;height:70px"></i><i class="cl" style="left:60px;top:430px;width:130px;height:40px;opacity:.7"></i></div>'+
+   '<h2 class="s-h" style="position:relative">When did you <em>wake up</em>?</h2><p class="s-sub" style="position:relative">Structured will help you start your day right.</p><div style="height:96px"></div>'+wheel('wake',c)+'</div>'+
+   '<div class="scr-foot" style="background:transparent"><button class="s-btn" data-act="wakenext">Continue</button></div>';
+}
+function scrBed(i){
+  var c=COL[i], st='';
+  for(var k=0;k<26;k++) st+='<i class="star" style="left:'+((k*53)%330+10)+'px;top:'+(40+(k*71)%520)+'px;opacity:'+(.4+(k%5)*.12)+'"></i>';
+  return '<div style="position:absolute;inset:0;background:var(--dusk)"></div><div style="position:relative;display:flex;flex-direction:column;height:100%;background:linear-gradient(180deg,var(--s-bg) 0,var(--s-bg) 150px,transparent 260px)">'+sb()+topBar(32,'var(--dusk)')+'<div class="scr-body" style="overflow:hidden"><div class="sky night"><i class="moon"></i>'+st+'</div>'+
+   '<h2 class="s-h" style="position:relative;--hc:var(--dusk)">When will you <em>go to bed</em>?</h2><p class="s-sub" style="position:relative">Setting a clear sleep goal can help to regulate your body’s internal clock.</p><div style="height:80px"></div>'+wheel('bed',c)+'</div>'+
+   '<div class="scr-foot" style="background:transparent"><button class="s-btn" data-act="bednext" style="--bc:var(--dusk-b)">Continue</button></div></div>';
+}
+function scrTask(i){
+  var c=COL[i], ord=SORD[c.focused?c.f:'today'];
+  return sb()+topBar(42)+'<div class="scr-body"><h2 class="s-h">What’s up <em>next</em>?</h2><p class="s-sub">Enter something you want to achieve today.</p>'+
+   '<div class="tk-in"><span class="ci">'+IC(c.task?c.task:'pencil')+'</span><span class="'+(c.task?'v':'')+'">'+(c.task?tn(c):'Create a task')+'</span><i class="ok"></i></div>'+
+   '<p class="sg-h">Here are some suggestions'+(c.focused?' for '+FOC[c.f].p:'')+':</p><div class="sg" data-hl="sug">'+ord.map(function(k){ return '<button class="'+(c.task===k?'on':'')+'" data-act="sug" data-sug="'+k+'">'+IC(k)+SUG[k][0]+'</button>'; }).join('')+'</div></div>'+
+   '<div class="scr-foot"><button class="s-btn" data-act="tasknext"'+(c.task?'':' disabled')+'>Continue</button></div>';
+}
+function tcard(c,colr){ return '<div class="tcard" style="--tc:'+(colr||COLS.coral)+'"><span class="ci">'+IC(c.task)+'</span><div><small>'+fmt(c.tt)+' – '+fmt(c.tt+c.dur)+' ('+(c.dur>=60?(c.dur/60)+' hr':c.dur+' min')+')</small><b>'+tn(c)+'</b></div><i class="rc"></i></div>'; }
+function scrTime(i){
+  var c=COL[i];
+  return sb()+topBar(52)+'<div class="scr-body"><h2 class="s-h">At what <em>time</em>?</h2><p class="s-sub">Choose a start time for your task.</p>'+tcard(c)+'<div style="height:70px"></div>'+wheel('tt',c)+'</div>'+
+   '<div class="scr-foot"><button class="s-btn" data-act="timenext">Continue</button></div>';
+}
+var DURS=[1,15,30,45,60,90];
+function dlab(d,on){ if(d>=60) return (d/60)+'h'; return on?d+'m':String(d); }
+function scrDur(i){
+  var c=COL[i];
+  return sb()+topBar(62)+'<div class="scr-body"><h2 class="s-h">How <em>long</em>?</h2><p class="s-sub">Set a duration for your task.</p>'+tcard(c)+
+   '<div class="dur">'+DURS.map(function(d){ return '<button class="'+(c.dur===d?'on':'')+'" data-act="dur" data-d="'+d+'">'+dlab(d,c.dur===d)+'</button>'; }).join('')+'</div><button class="dur-alt" data-act="duralt">Need a different duration?</button></div>'+
+   '<div class="scr-foot"><button class="s-btn" data-act="durnext">Continue</button></div>';
+}
+function scrColor(i){
+  var c=COL[i], cc=COLS[c.col];
+  return sb()+topBar(74,cc)+'<div class="scr-body" style="overflow:hidden"><i class="hatch b"></i><i class="hatch g"></i><i class="hatch p"></i><h2 class="s-h" style="position:relative;--hc:'+cc+'">What <em>color</em>?</h2><p class="s-sub" style="position:relative">Pick a color for your task.</p>'+tcard(c,cc)+
+   '<div class="dots" style="position:relative">'+CORD.map(function(k){ return '<button style="--c:'+COLS[k]+'" class="'+(c.col===k?'on':'')+'" data-act="col" data-col="'+k+'" aria-label="'+k+'"></button>'; }).join('')+'<button class="rb" data-act="colany" aria-label="any colour"></button></div></div>'+
+   '<div class="scr-foot"><button class="s-btn" data-act="colnext" style="--bc:'+cc+'">Continue</button></div>'+
+   (c.dlg?'<div class="sys"><div class="sys-in"><h5>Would you like to set the app’s theme to this color?</h5><p>You can always change the app’s theme under Customization in the Settings.</p><div class="bt"><button data-act="keepcur">Keep Current</button><button data-act="setdef">Set as Default</button></div></div></div>':'');
+}
+function loadLines(i){
+  var c=COL[i];
+  return ['Your day runs <b>'+fmt(c.wake)+'</b> to <b>'+fmt(c.bed)+'</b>',
+          'Blocking <b>'+tn(c)+'</b>, '+fmt(c.tt)+' – '+fmt(c.tt+c.dur),
+          'Setting Wind Down for <b>'+fmt(c.bed)+'</b>',
+          '<b>'+hm(free(c))+'</b> still open to plan'];
+}
+function scrLoad(i){
+  var c=COL[i], ln=loadLines(i), n=c.ld||0;
+  return sb()+'<div class="scr-body col" style="padding-bottom:0"><div class="ld" data-hl="ld"><img src="img/icon.png" alt=""><h3>Building <em>your Structured day</em></h3>'+
+   '<div class="ld-bar"><i style="width:'+Math.round(100*n/ln.length)+'%"></i></div><div class="ld-list">'+ln.map(function(t,k){ return '<div'+(k<n?' class="ok"':'')+'><span class="ck">'+CHK+'</span><span>'+t+'</span></div>'; }).join('')+'</div></div></div>';
+}
+function planRows(c){ var t=tcol(c);
+  return '<div class="pl-row done" style="--tc:'+COLS.coral+'"><span class="ci">'+IC('alarm')+'</span><div><small>'+fmt(c.wake)+'</small><b>Rise and Shine</b></div><i class="rc"></i></div>'+
+   '<div class="pl-row" style="--tc:'+COLS[c.col]+'"><span class="ci">'+IC(c.task)+'</span><div><small>'+fmt(c.tt)+' – '+fmt(c.tt+c.dur)+' ('+(c.dur>=60?(c.dur/60)+' hr':c.dur+' min')+')</small><b>'+tn(c)+'</b></div><i class="rc"></i></div>'+
+   '<div class="pl-row" style="--tc:'+COLS.slate+'"><span class="ci">'+IC('moon')+'</span><div><small>'+fmtS(c.bed)+'</small><b>Wind Down</b></div><i class="rc"></i></div>'; }
+function scrPlan(i){
+  var c=COL[i];
+  return sb()+topBar(96,tcol(c))+'<div class="scr-body"><h2 class="s-h" style="--hc:'+tcol(c)+'"><em>Awesome!</em> That’s a great plan.</h2><p class="s-sub">You’re all set! It’s time to achieve your goals.</p>'+
+   (c.focused?'<span class="pl-chip">'+IC(c.f)+'Planned for '+FOC[c.f].p+'</span>':'')+
+   '<p class="pl-k">Your Structured Plan:</p><div class="pl-card">'+planRows(c)+'</div>'+
+   '<p class="pl-free"><b>'+hm(free(c))+'</b> of your day is still open.</p></div>'+
+   '<div class="scr-foot"><button class="s-btn" data-act="finish" style="--bc:'+tcol(c)+'">Finish Setup</button></div>';
+}
+function rowsHTML(keys,lead){
+  var h='<div class="cmp" data-hl="rows"><div class="r hd"><span></span><span>Free</span><span>Pro</span></div>';
+  keys.forEach(function(k){ var r=ROWS[k]; h+='<div class="r'+(lead&&lead.indexOf(k)>-1?' lead':'')+'"><b>'+r[0]+'</b><span class="c">'+(r[1]?'<span class="yes">'+SV(ICN.check,2.6)+'</span>':'<span class="no">✕</span>')+'</span><span class="c"><span class="yes">'+SV(ICN.check,2.6)+'</span></span></div>'; });
+  return h+'</div>';
+}
+function awards(){ return '<div class="aw" data-hl="proof"><i style="--m:url(img/aw-editors.png)"></i><i style="--m:url(img/aw-aotd.png)"></i><i style="--m:url(img/aw-forbes.png)"></i></div>'; }
+function revHTML(k){ var r=REV[k]; return '<div class="rev"><h5>'+r.h+'</h5><div class="st">★★★★★</div><p>'+r.t+'</p><small>'+r.s+'</small></div>'; }
+function trialTL(){ return '<div class="tl"><h5>How your free trial works:</h5><div><i>'+IC('star')+'</i><span><b>Today</b><small>Get access to Structured Pro and plan your day to perfection.</small></span></div><div><i>'+IC('bell')+'</i><span><b>In 2 days</b><small>We’ll remind you with a notification that your trial is ending.</small></span></div><div><i>★</i><span><b>In 3 days</b><small>You’ll be charged $14.99, cancel anytime before.</small></span></div></div>'; }
+function plansHTML(c){
+  return '<div class="plans" data-hl="plans">'+
+   '<button class="plan'+(c.plan==='y'?' on':'')+'" data-act="plan" data-p="y"><div class="rw"><b>Yearly</b><span class="pp">$14.99 <small>/ year</small></span></div><div class="rw2"><small>Try three days for free</small><span class="tg">FREE TRIAL</span></div><div class="sv">$1.25 a month · 74% less than Monthly</div></button>'+
+   '<button class="plan'+(c.plan==='m'?' on':'')+'" data-act="plan" data-p="m"><div class="rw"><b>Monthly</b><span class="pp">$4.99 <small>/ month</small></span></div><small>Most flexible. Try it out.</small></button>'+
+   '<button class="plan'+(c.plan==='l'?' on':'')+'" data-act="plan" data-p="l"><div class="rw"><b>Lifetime</b><span class="pp"><small>once</small> $49.99</span></div><small>Buy once, keep forever! No subscription.</small></button></div>';
+}
+function footPW(c){
+  var cap=c.plan==='y'?'Try 3 days for free, then just <b>$14.99 / year</b>.':c.plan==='m'?'<b>$4.99 a month.</b> Cancel any time.':'<b>$49.99 once.</b> Yours forever, no subscription.';
+  var cta=c.plan==='y'?'Start your free trial':c.plan==='m'?'Continue with Monthly':'Buy Lifetime';
+  return '<div class="scr-foot sep"><p class="fcap">'+cap+'</p><button class="s-btn" data-act="buy" style="--bc:var(--t)">'+cta+'</button><button class="s-btn2" data-act="x">Skip For Now</button></div>';
+}
+function scrPW(i){
+  var c=COL[i], f=PWF[c.f];
+  var rows=f.rows.concat(RORD.filter(function(k){ return f.rows.indexOf(k)<0; }));
+  return sb()+'<div class="scr-body">'+
+   '<div class="pw-eb">Structured Pro ★</div><div class="pw-vs"><span>vs</span>Structured Free</div>'+
+   '<h2 class="pw-h" data-hl="head">'+f.h(c)+'</h2><p class="pw-s">'+f.s+'</p>'+
+   awards()+'<div class="rate"><i>★★★★★</i><span>4.8 from 169K ratings · Editors’ Choice</span></div>'+
+   rowsHTML(c.all?rows:f.rows.slice(0,3),f.rows.slice(0,3))+'<button class="allb" data-act="all">'+(c.all?'Show less':'See everything in Pro ›')+'</button>'+
+   plansHTML(c)+(c.plan==='y'?trialTL():'')+revHTML(f.rv)+
+   '<p class="legal">All plans can be used on iPhone, iPad &amp; Mac and can be shared with your iCloud family.</p><div class="flinks"><a>Restore</a><span>·</span><a>Terms</a><span>·</span><a>Help</a></div></div>'+footPW(c);
+}
+function scrToday(i){
+  var c=COL[i];
+  return sb()+'<div class="scr-body">'+
+   '<div class="pw-eb" style="margin-top:14px">Structured Pro ★</div><div class="pw-vs"><span>vs</span>Structured Free</div>'+
+   rowsHTML(RORD)+'<p class="t-k">How your free trial works:</p>'+trialTL().replace('<h5>How your free trial works:</h5>','')+
+   awards()+'<p class="t-k">What our happy users say:</p><div class="t-rv">'+revHTML('plate')+revHTML('study')+'</div>'+
+   '<div class="cap-today">Reached after Finish Setup and the notification prompt.<br>Same screen for every install. Monthly and Lifetime only behind All Plans.</div></div>'+
+   '<div class="scr-foot sep"><p class="fcap">Try 3 days for free, then just <b>$14.99 / year</b>.</p><button class="s-btn" data-act="tbuy" style="--bc:var(--t)">Start your free trial</button><button class="s-btn2" data-act="tx">Skip For Now</button><div class="flinks"><a data-act="allp">All Plans</a><span>·</span><a>Restore</a><span>·</span><a>Help</a></div></div>'+
+   (c.allp?'<div class="sheet"><div class="sheet-in"><div class="grab"></div><h4>Choose a plan<button data-act="allpx">✕</button></h4>'+plansHTML(c).replace('<div class="sv">$1.25 a month · 74% less than Monthly</div>','')+'<p class="legal">All plans can be used on iPhone, iPad &amp; Mac and can be shared with your iCloud family.</p></div></div>':'');
+}
+function scrHome(i){
+  var c=COL[i], days=[['Sun',8],['Mon',9],['Tue',10],['Wed',11],['Thu',12],['Fri',13],['Sat',14]], t=tcol(c);
+  var h=Math.max(50,Math.min(120,c.dur*1.4));
+  return sb()+'<div class="hm-h"><h2>November <span>2026</span> ›</h2><div class="wk">'+days.map(function(d){ var on=d[1]===11; return '<div><small>'+d[0]+'</small><b class="'+(on?'on':'')+'">'+d[1]+'</b><u class="'+(on?'on':'')+'"></u></div>'; }).join('')+'</div></div>'+
+   '<div class="scr-body"><div class="tlv">'+
+    '<div class="tli done" style="--tc:'+COLS.coral+'"><span class="pl" style="height:50px">'+IC('alarm')+'</span><div><small>'+fmt(c.wake)+' – '+fmt(c.wake+15)+' (15 min)</small><b>Rise and Shine</b></div><i class="rc"></i></div>'+
+    '<div class="gap">A well-spent interval</div>'+
+    '<div class="tli" style="--tc:'+COLS[c.col]+'"><span class="pl" style="height:'+h+'px">'+IC(c.task)+'</span><div><small>'+fmt(c.tt)+' – '+fmt(c.tt+c.dur)+'</small><b>'+tn(c)+'</b></div><i class="rc"></i></div>'+
+    '<div class="gap">'+hm(free(c))+' open · Tap + to plan more</div>'+
+    '<div class="tli" style="--tc:'+COLS.slate+'"><span class="pl" style="height:50px">'+IC('moon')+'</span><div><small>'+fmtS(c.bed)+'</small><b>Wind Down</b></div><i class="rc"></i></div>'+
+   '</div></div>'+
+   '<div class="tabbar"><div>'+SV('<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.1z"/>')+'Inbox</div><div class="on">'+SV('<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>')+'Timeline</div><div>'+SV('<path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/>')+'AI</div><div>'+SV('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>')+'Settings</div><button class="fab" data-act="fab">+</button></div>'+
+   (c.nt?'<div class="nt" data-hl="notif">'+tcard(c,COLS[c.col])+'<span class="mv">ASKED HERE NOW, AFTER PRO</span><h4>Don’t Miss Your Task!</h4><p>Stay on track with customizable alerts about your tasks.</p><button class="s-btn" data-act="ntallow" style="--bc:'+t+'">Allow Notifications</button><button class="skip" data-act="ntskip">Skip For Now</button></div>':'')+
+   (c.sys?'<div class="sys"><div class="sys-in"><h5>“Structured” Would Like to Send You Notifications</h5><p>Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.</p><div class="bt"><button data-act="sysno">Don’t Allow</button><button data-act="sysok">Allow</button></div></div></div>':'');
+}
+
+/* which screen each phone shows for a step */
+function stepScr(st,i){ if(st==='arrive') return PH[i].src==='ad'?'ig':'welcome'; if(st==='day') return 'wake'; return st; }
+function phoneHTML(i){
+  var c=COL[i], s=c.scr, inner;
+  var M={ig:scrIG,welcome:scrWelcome,start:scrStart,focus:scrFocus,wake:scrWake,bed:scrBed,task:scrTask,ttime:scrTime,dur:scrDur,color:scrColor,load:scrLoad,plan:scrPlan,pw:scrPW,today:scrToday,home:scrHome};
+  inner=(M[s]||scrPW)(i);
+  var t=tcol(c);
+  return '<div class="phone'+(G.theme==='dark'?' dk':'')+'"><section class="scr" data-s="'+s+'" style="--t:'+t+';--tt:'+(G.theme==='dark'?mixw(t,.38):(TT[c.theme]||t))+';--ts:'+soft(t,.16)+'">'+inner+'<div class="toast"></div></section></div>';
+}
+function wire(i,box){
+  $$('.whl',box).forEach(function(w){
+    var a=+w.dataset.a, v=+w.dataset.v, y0=((v-a)/15)*40; w.scrollTop=y0; w._ready=false;
+    var paint=function(){ var k=Math.round(w.scrollTop/40); $$('.wi',w).forEach(function(el,j){ el.classList.toggle('on',j===k); el.style.opacity=Math.max(.25,1-Math.abs(j-k)*.28); }); return a+k*15; };
+    paint();
+    requestAnimationFrame(function(){ if(Math.abs(w.scrollTop-y0)>2) w.scrollTop=y0; paint(); setTimeout(function(){ if(Math.abs(w.scrollTop-y0)>2) { w.scrollTop=y0; paint(); } w._ready=true; },260); });
+    w.addEventListener('scroll',function(){ var m=paint(); if(!w._ready) return; clearTimeout(w._t); w._t=setTimeout(function(){ var c=COL[i], kd=w.dataset.k; if(kd==='wake') c.wake=m; else if(kd==='bed') c.bed=m; else { c.tt=m; var tc=$('.tcard small',box); if(tc) tc.textContent=fmt(c.tt)+' – '+fmt(c.tt+c.dur)+' ('+(c.dur>=60?(c.dur/60)+' hr':c.dur+' min')+')'; } },90); },{passive:true});
+  });
+  var dts=$('.dots',box), on=dts&&$('.dots button.on',box); if(on) dts.scrollLeft=Math.max(0,on.offsetLeft-dts.clientWidth/2+17);
+  var car=$('.car',box); if(car) car.addEventListener('scroll',function(){ var k=Math.round(car.scrollLeft/car.clientWidth); $$('.cdots i',box).forEach(function(d,j){ d.classList.toggle('on',j===k); }); },{passive:true});
+}
+function drawCol(i,keep){
+  var box=$('#trio .tcol[data-i="'+i+'"] .pbox'); if(!box) return;
+  var ph=box.querySelector('.phone'), b=box.querySelector('.scr-body'), y=b?b.scrollTop:0;
+  var tmp=document.createElement('div'); tmp.innerHTML=phoneHTML(i);
+  if(ph) box.replaceChild(tmp.firstChild,ph); else box.insertBefore(tmp.firstChild,box.firstChild);
+  if(keep){ var nb=box.querySelector('.scr-body'); if(nb) nb.scrollTop=y; }
+  wire(i,box);
+  if(COL[i].scr==='load') runLoad(i);
+}
+function go(i,s){ var c=COL[i]; clearTimeout(c.lt); c.prev=c.prev||[]; if(c.scr&&c.scr!==s) c.prev.push(c.scr); c.scr=s; if(s==='load') c.ld=0; if(s==='home'){ c.nt=1; c.sys=0; } drawCol(i); }
+function runLoad(i){
+  var c=COL[i], n=loadLines(i).length, k=walk.on?0.55:1;
+  clearTimeout(c.lt);
+  c.lt=setTimeout(function step(){
+    if(c.scr!=='load') return;
+    if(c.ld<n){ c.ld++; var box=$('#trio .tcol[data-i="'+i+'"]'); $$('.ld-list div',box).forEach(function(d,j){ d.classList.toggle('ok',j<c.ld); }); var bar=$('.ld-bar i',box); if(bar) bar.style.width=Math.round(100*c.ld/n)+'%'; c.lt=setTimeout(step,620*k); }
+    else { c.lt=setTimeout(function(){ if(c.scr==='load') go(i,'plan'); },520*k); }
+  },420*k);
+}
+function pillText(i){ var p=PH[i]; return p.src==='ad'?p.pill:p.pill+' · picks '+FOC[COL[i].f].k; }
+function renderTrio(){
+  $('#trio').innerHTML=PH.map(function(p,i){
+    return '<div class="tcol" data-i="'+i+'" style="--ring:'+p.ring+'"><div class="apill"><span class="mt'+(p.src==='ad'?' ad':'')+'">'+p.mt+'</span><span class="tx">'+pillText(i)+'</span></div><div class="pbox"><i class="finger"></i></div><div class="tlab"><b>'+p.lab[0]+'</b><span>'+p.lab[1]+'</span></div></div>';
+  }).join('');
+  PH.forEach(function(p,i){ drawCol(i); });
+}
+function paintSteps(){ $$('#steps button').forEach(function(b){ b.classList.toggle('on',b.dataset.st===G.step); }); $('#stcap').innerHTML=TCAP[G.step]||''; $$('#trio .tcol').forEach(function(t){ t.classList.toggle('ring',G.step!=='today'); }); }
+function setStep(st){ G.step=st; PH.forEach(function(p,i){ initCol(i); COL[i].prev=[]; COL[i].scr=stepScr(st,i); }); paintSteps(); PH.forEach(function(p,i){ clearTimeout(COL[i].lt); drawCol(i); }); }
+function toast(i,m){ var e=$('#trio .tcol[data-i="'+i+'"] .toast'); if(!e) return; e.textContent=m; e.classList.add('show'); clearTimeout(e._t); e._t=setTimeout(function(){ e.classList.remove('show'); },1900); }
+
+/* taps inside a phone change only that phone */
+var NEXT={start:'focus',focus:'wake',wake:'bed',bed:'task',task:'ttime',ttime:'dur',dur:'color'};
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-act]'); if(!t) return; var col=t.closest('.tcol'); if(!col) return;
+  var i=+col.dataset.i, c=COL[i], a=t.dataset.act;
+  if(a==='install'){ c.slide=0; go(i,'welcome'); }
+  else if(a==='wnext'){ if(c.slide<2){ c.slide++; drawCol(i); } else go(i,'start'); }
+  else if(a==='wskip') go(i,'start');
+  else if(a==='tomorrow') toast(i,'Same steps, planned for tomorrow');
+  else if(a==='startplan') go(i,'focus');
+  else if(a==='f'){ c.f=t.dataset.f; c.focused=1; drawCol(i,true); $('.apill .tx',col).textContent=pillText(i); }
+  else if(a==='focusnext') go(i,'wake');
+  else if(a==='wakenext') go(i,'bed');
+  else if(a==='bednext') go(i,'task');
+  else if(a==='sug'){ c.task=t.dataset.sug; c.dur=SUG[c.task][1]; drawCol(i,true); }
+  else if(a==='tasknext'){ if(c.task) go(i,'ttime'); }
+  else if(a==='timenext') go(i,'dur');
+  else if(a==='dur'){ c.dur=+t.dataset.d; drawCol(i,true); }
+  else if(a==='duralt') toast(i,'Your custom duration picker opens here');
+  else if(a==='durnext') go(i,'color');
+  else if(a==='col'){ c.col=t.dataset.col; drawCol(i,true); }
+  else if(a==='colany') toast(i,'Your custom colour picker opens here');
+  else if(a==='colnext'){ c.dlg=1; drawCol(i,true); }
+  else if(a==='setdef'){ c.theme=c.col; c.dlg=0; go(i,'load'); }
+  else if(a==='keepcur'){ c.theme='coral'; c.dlg=0; go(i,'load'); }
+  else if(a==='finish') go(i,'pw');
+  else if(a==='plan'){ c.plan=t.dataset.p; drawCol(i,true); }
+  else if(a==='all'){ c.all=!c.all; drawCol(i,true); }
+  else if(a==='buy'||a==='tbuy') toast(i,'Apple’s purchase sheet opens here');
+  else if(a==='x'){ go(i,'home'); toast(i,'Closed straight into the app. No second paywall.'); }
+  else if(a==='tx') toast(i,'Today Skip For Now opens the timeline');
+  else if(a==='allp'){ c.allp=1; drawCol(i,true); }
+  else if(a==='allpx'){ c.allp=0; drawCol(i,true); }
+  else if(a==='ntallow'){ c.sys=1; drawCol(i,true); }
+  else if(a==='ntskip'){ c.nt=0; drawCol(i,true); }
+  else if(a==='sysok'||a==='sysno'){ c.sys=0; c.nt=0; drawCol(i,true); toast(i,a==='sysok'?'Alerts on for '+tn(c):'No alerts. Your timeline stays as planned'); }
+  else if(a==='fab') toast(i,'Your new-task sheet opens here');
+  else if(a==='back'){ var p=(c.prev||[]).pop(); if(p){ c.scr=p; drawCol(i); } }
+  else if(a==='skip'){ var n=NEXT[c.scr]; if(n) go(i,n); else go(i,'pw'); }
+});
+
+function fit(){ var w=document.documentElement.clientWidth||innerWidth; if(w<300) w=Math.max(w,(screen&&screen.width)||390,320); var sc=w>=1240?0.8:w>=900?(w-160)/(3*390):(w-48)/390; sc=Math.min(0.8,Math.max(0.42,sc)); $('#trio').style.setProperty('--sc',sc.toFixed(3)); }
+
+/* ---- idea cards and list ---- */
+function ideaRow(d){ return '<div class="row"><span class="out">'+d.o+' <small>'+d.u+'</small></span><span class="see">See it on the phones →</span></div>'; }
+$('#ideas').innerHTML=IDEAS.map(function(d,i){ return '<div class="idea" data-idea="'+i+'"><div class="n">Idea '+(i+1)+' of 5</div><h3>'+d.t+'</h3><p>'+d.p+'</p>'+ideaRow(d)+'<div class="kept">'+d.kept+'</div></div>'; }).join('');
+$('#list').innerHTML=IDEAS.map(function(d,i){ return '<div class="it" data-idea="'+i+'"><div class="em">0'+(i+1)+'</div><div><h3>'+d.t+'</h3><p>'+d.p+'</p>'+ideaRow(d)+'</div></div>'; }).join('');
+function showIdea(n){
+  var d=IDEAS[n]; stopWalk(); showView('pw'); setStep(d.st);
+  setTimeout(function(){
+    $('#trio').scrollIntoView({behavior:'smooth',block:'start'});
+    $$('#trio [data-hl="'+d.hl+'"]').forEach(function(el){
+      var b=el.closest('.scr-body'); if(b) b.scrollTop=Math.max(0,el.offsetTop-120);
+      el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse');
+    });
+  },120);
+}
+document.addEventListener('click',function(e){ var c=e.target.closest('[data-idea]'); if(c) showIdea(+c.dataset.idea); });
+document.addEventListener('click',function(e){ var b=e.target.closest('[data-adgo]'); if(!b) return; stopWalk(); showView('pw'); setStep('arrive');
+  setTimeout(function(){ var col=$('#trio .tcol[data-i="0"]'); col.scrollIntoView({behavior:'smooth',block:'center',inline:'center'}); col.querySelector('.phone').classList.add('pulse'); },80); });
+
+/* ---- views ---- */
+function showView(v){ $$('.view').forEach(function(x){ x.classList.remove('on'); }); $('#view-'+v).classList.add('on'); $$('.tabs button').forEach(function(b){ b.classList.toggle('on',b.dataset.v===v); });
+  if(v!=='pw') stopWalk();
+  var q=new URLSearchParams(location.search); q.delete('open'); if(v==='pw') q.set('view','proto'); else q.delete('view'); history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')); scrollTo(0,0); fit(); if(v==='pw') PH.forEach(function(p,i){ drawCol(i,true); }); }
+$$('.tabs button').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.v); }); });
+$$('[data-open]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.open); }); });
+$$('#steps button').forEach(function(b){ b.addEventListener('click',function(){ stopWalk(); setStep(b.dataset.st); }); });
+$$('#theme button').forEach(function(b){ b.addEventListener('click',function(){ G.theme=b.dataset.th; $$('#theme button').forEach(function(x){ x.classList.toggle('on',x===b); }); PH.forEach(function(p,i){ drawCol(i,true); }); }); });
+
+/* ---- the 30-second walkthrough: drives the real phones ---- */
+var walk={on:false,tok:0};
+function wait(ms,tk){ return new Promise(function(res,rej){ setTimeout(function(){ tk===walk.tok?res():rej('stop'); },ms); }); }
+function cap(t,p){ $('#dtx').textContent=t; $('#dpr').style.width=p+'%'; }
+async function tap(i,sel,tk){
+  var col=$('#trio .tcol[data-i="'+i+'"]'), box=$('.pbox',col), el=$(sel,box), f=$('.finger',box); if(!el) return;
+  var b=box.getBoundingClientRect(), r=el.getBoundingClientRect();
+  f.classList.add('on'); f.style.left=(r.left-b.left+r.width/2)+'px'; f.style.top=(r.top-b.top+r.height/2)+'px';
+  await wait(340,tk); f.classList.add('press'); await wait(110,tk); f.classList.remove('press'); el.click(); await wait(150,tk);
+}
+function others(s){ PH.forEach(function(p,i){ if(i!==1) go(i,s); }); }
+async function spinWheel(i,steps,tk){ var w=$('#trio .tcol[data-i="'+i+'"] .whl'); if(!w) return; var fr=w.scrollTop, to=fr+steps*40, t0=performance.now(); while(true){ var k=Math.min(1,(performance.now()-t0)/650); w.scrollTop=fr+(to-fr)*(1-Math.pow(1-k,3)); if(k>=1) break; await wait(16,tk); } }
+async function scrollTo2(i,sel,tk){ var box=$('#trio .tcol[data-i="'+i+'"] .pbox'), b=$('.scr-body',box), el=$(sel,box); if(!b||!el) return; var to=Math.max(0,el.offsetTop-90), fr=b.scrollTop, t0=performance.now(); while(true){ var k=Math.min(1,(performance.now()-t0)/600); b.scrollTop=fr+(to-fr)*(1-Math.pow(1-k,3)); if(k>=1) break; await wait(16,tk); } }
+async function startWalk(){
+  stopWalk(); var tk=++walk.tok; walk.on=true; showView('pw'); $('#dcap').classList.add('on'); $('#wt').classList.add('on'); $('#wt').textContent='■ Stop walkthrough';
+  var t0=performance.now();
+  try{
+    setStep('arrive'); $('#trio').scrollIntoView({behavior:'smooth',block:'center'});
+    cap('Three new installs: one from your Meta ad, two from the App Store.',5); await wait(1200,tk);
+    go(0,'welcome'); await tap(1,'[data-act=wnext]',tk); await wait(150,tk); await tap(1,'[data-act=wskip]',tk); others('start');
+    cap('Your intro screens and Start Planning, untouched.',12); await wait(500,tk);
+    await tap(1,'[data-act=startplan]',tk); others('focus');
+    cap('New: what the day is for, in your App Store listing’s words.',22); await wait(600,tk);
+    await tap(1,'[data-f=routine]',tk); await wait(250,tk); await tap(1,'[data-f=adhd]',tk); await tap(1,'[data-act=focusnext]',tk); others('wake');
+    cap('Your wake-up wheel and bedtime sky. The times travel to the plan.',32); await wait(320,tk); await spinWheel(1,2,tk); await wait(300,tk);
+    await tap(1,'[data-act=wakenext]',tk); others('bed'); await wait(700,tk);
+    await tap(1,'[data-act=bednext]',tk); others('task');
+    cap('Suggestions now follow the focus. Pick a task, a time, a length.',44); await wait(500,tk);
+    await tap(1,'[data-sug=walk]',tk); await tap(1,'[data-act=tasknext]',tk); others('ttime'); await wait(300,tk);
+    await tap(1,'[data-act=timenext]',tk); others('dur'); await tap(1,'[data-d="45"]',tk); await tap(1,'[data-act=durnext]',tk); others('color');
+    cap('Their colour becomes the app’s theme, exactly as today.',56); await tap(1,'[data-col=teal]',tk); await tap(1,'[data-act=colnext]',tk); await wait(300,tk);
+    await tap(1,'[data-act=setdef]',tk); others('load');
+    cap('The wait reads their own day back.',66); await wait(2700,tk);
+    PH.forEach(function(p,i){ if(COL[i].scr!=='plan') go(i,'plan'); });
+    cap('Your “Awesome! That’s a great plan.”, now with the hours still open.',74); await wait(1100,tk);
+    await tap(1,'[data-act=finish]',tk); others('pw');
+    cap('Pro opens on the day they planned: headline, rows, review.',82); await wait(1800,tk);
+    await Promise.all(PH.map(function(p,i){ return scrollTo2(i,'[data-hl=plans]',tk); }));
+    cap('Monthly and Lifetime sit next to Yearly now.',90); await wait(400,tk);
+    await tap(1,'[data-p=l]',tk); await wait(500,tk); await tap(1,'[data-p=y]',tk); await wait(700,tk);
+    cap('Skip For Now goes straight to the timeline. Notifications are asked there.',97); await tap(1,'[data-act=x]',tk); others('home'); await wait(1800,tk);
+    cap('That’s the flow. Tap any phone to try it yourself.',100); console.log('walkthrough ms',Math.round(performance.now()-t0));
+    await wait(1400,tk); stopWalk(); setStep('pw');
+  }catch(e){}
+}
+function stopWalk(){ if(!walk.on) return; walk.on=false; walk.tok++; $('#dcap').classList.remove('on'); $('#wt').classList.remove('on'); $('#wt').textContent='▶ 30-second walkthrough'; $$('.finger').forEach(function(f){ f.classList.remove('on'); }); }
+$$('[data-walk]').forEach(function(b){ b.addEventListener('click',function(){ if(walk.on&&b.id==='wt'){ stopWalk(); return; } startWalk(); }); });
+document.addEventListener('pointerdown',function(e){ if(!walk.on||!e.isTrusted) return; if(e.target.closest('#wt')) return; if(e.target.closest('#trio,#steps,#theme,.tabs,.nav')) stopWalk(); },true);
+
+/* hero: a Structured timeline drifting up, the way the day scrolls in the app */
+(function(){ var T=[['7:00 AM','Rise and Shine',44],['7:30 AM','Yoga',70],['8:15 AM','Take a Shower',44],['9:00 AM','Answer Emails',90],['12:30 PM','Eat Lunch',56],['2:00 PM','Deep work',110],['5:30 PM','Go for a walk',60],['7:00 PM','Phone a friend',44],['9:30 PM','Read a book',70],['11:00 PM','Wind Down',44]];
+  function lane(off){ var h=''; for(var r=0;r<2;r++) T.forEach(function(x,k){ var y=T[(k+off)%T.length]; h+='<div class="pl" style="--h:'+y[2]+'px"><i></i><span><small>'+y[0]+'</small>'+y[1]+'</span><u></u></div>'; }); return h; }
+  $('#tlm').innerHTML='<div class="lane" style="right:6%;animation-duration:46s">'+lane(0)+'</div><div class="lane" style="right:30%;top:-120px;animation-duration:58s;opacity:.7">'+lane(4)+'</div><div class="lane" style="right:54%;top:-60px;animation-duration:66s;opacity:.45">'+lane(7)+'</div>'; })();
+
+PH.forEach(function(p,i){ COL[i].scr=stepScr(G.step,i); COL[i].prev=[]; });
+renderTrio(); fit(); paintSteps(); addEventListener('resize',fit); addEventListener('load',fit); addEventListener('pageshow',fit); if(window.ResizeObserver) new ResizeObserver(fit).observe(document.documentElement);
+(function(){ var q=new URLSearchParams(location.search); if(q.get('view')==='proto'||q.get('open')==='proto') showView('pw'); if(q.get('step')) setStep(q.get('step')); })();
+</script>
+<script>
+/* GitHub Pages lets browsers keep this page for 10 minutes; if a newer build is live, reload onto it */
+var BUILD='s1';
+fetch(location.pathname+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){ return r.text(); }).then(function(h){
+  var m=h.match(/var BUILD='([^']+)'/); if(m && m[1]!==BUILD){ var q=new URLSearchParams(location.search); q.set('v',m[1]); location.replace(location.pathname+'?'+q.toString()); }
+}).catch(function(){});
+</script>
+</body>
+</html>
